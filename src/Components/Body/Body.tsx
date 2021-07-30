@@ -25,7 +25,7 @@ function Body({ user }: bodyProps) {
     }
     fetchBody("http://localhost:8080/");
     // await console.log(bodyObject);
-  }, [bodyObject]);
+  });
 
   return (
     <div className="Body-container">
