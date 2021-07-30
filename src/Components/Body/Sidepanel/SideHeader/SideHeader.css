@@ -1,0 +1,9 @@
+.header-container {
+    height: 2vh;
+    background-color: rgb(73, 0, 73);
+    position: sticky;
+    font-size: larger;
+    text-align: left;
+    padding: 8px;
+    font-weight: bolder; 
+}
