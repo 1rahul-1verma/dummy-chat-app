@@ -1,0 +1,11 @@
+.friend-container {
+    margin-top: 50px;
+    margin-left: 10px;
+    text-align: left;
+    color: rgb(199, 197, 197);
+}
+
+.friend {
+    margin: 10px;
+    color: rgb(199, 197, 197);
+}

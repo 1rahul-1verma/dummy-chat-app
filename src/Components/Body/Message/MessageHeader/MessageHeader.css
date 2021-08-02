@@ -1,0 +1,10 @@
+.message-header-container {
+    height: 2vh;
+    width: 85vw;
+    position: sticky;
+    font-size: larger;
+    text-align: left;
+    padding: 8px;
+    font-weight: bolder; 
+    border: .25px solid black;
+}

@@ -1,0 +1,11 @@
+.channel-container {
+    margin-top: 50px;
+    margin-left: 10px;
+    text-align: left;
+    color: rgb(199, 197, 197);
+}
+
+.channel {
+    margin: 10px;
+    color: rgb(199, 197, 197);
+}
