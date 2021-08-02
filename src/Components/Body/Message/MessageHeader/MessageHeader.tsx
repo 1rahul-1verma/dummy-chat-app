@@ -1,10 +1,13 @@
 import React from 'react'
 import "./MessageHeader.css"
 
-function MessageHeader() {
+interface messageHeaderProps {
+    activeChat: String;
+}
+function MessageHeader({ activeChat }: messageHeaderProps) {
     return (
         <div className = "message-header-container">
-            Friend's Name
+            { activeChat }
         </div>
     )
 }

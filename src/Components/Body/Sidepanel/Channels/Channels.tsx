@@ -1,19 +1,20 @@
 import React from "react";
 import './Channels.css';
 
-const channelList: string[] = [
-  "campus-fte",
-  "campus-fte-june",
-  "company-announcement",
-  "help-onboard-june-21",
-];
+interface channelProps {
+    channels: string[];
+    handleSelectedChat: (chat: String) => void;
+}
 
-function Channels() {
+function Channels({ channels, handleSelectedChat }: channelProps) {
+    function handleClickChange(e: React.MouseEvent<HTMLElement>) {
+        handleSelectedChat(e.currentTarget.innerText);
+    }
     return (
         <div className="channel-container">
             Channels
-            {channelList.map((channel, indx) => {
-                return <li key = {indx} className="channel"> {channel} </li>
+            {channels.map((channel, indx) => {
+                return <div key={indx} className="channel" onClick={ (e) => handleClickChange(e)}> {channel} </div>
             })}
         </div>
     )
