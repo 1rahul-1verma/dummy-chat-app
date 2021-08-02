@@ -1,7 +1,7 @@
 import React from 'react'
-import MessageBody from './MessageBody/MessageBody';
-import MessageBox from './MessageBox/MessageBox';
-import MessageHeader from './MessageHeader/MessageHeader';
+import { MessageBody } from './MessageBody/MessageBody';
+import { MessageBox } from './MessageBox/MessageBox';
+import { MessageHeader } from './MessageHeader/MessageHeader';
 import "./Message.css";
 
 function Message() {
@@ -14,4 +14,4 @@ function Message() {
     )
 }
 
-export default Message
+export { Message };

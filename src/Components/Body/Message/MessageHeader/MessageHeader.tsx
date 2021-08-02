@@ -9,4 +9,4 @@ function MessageHeader() {
     )
 }
 
-export default MessageHeader
+export { MessageHeader };

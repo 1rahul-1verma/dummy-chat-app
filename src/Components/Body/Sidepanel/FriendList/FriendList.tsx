@@ -11,8 +11,8 @@ function FriendList() {
     return (
         <div className="friend-container">
             Direct Messages
-            {friendList.map(friend => {
-                return <li className="friend"> { friend } </li>
+            {friendList.map((friend, indx) => {
+                return <li key={ indx} className="friend"> { friend } </li>
             })}
         </div>
     );

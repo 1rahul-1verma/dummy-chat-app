@@ -5,8 +5,8 @@ function Application() {
   return (
     <div className="applications-container">
       Apps
-      {applicationList.map((app) => {
-        return <li className="app"> {app} </li>;
+      {applicationList.map((app, indx) => {
+        return <li key = {indx} className="app"> {app} </li>;
       })}
     </div>
   );

@@ -8,4 +8,4 @@ function MessageBox() {
     )
 }
 
-export default MessageBox
+export { MessageBox };

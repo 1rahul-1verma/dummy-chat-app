@@ -8,4 +8,4 @@ function MessageBody() {
     )
 }
 
-export default MessageBody
+export { MessageBody };

@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import "./Body.css";
-import Sidepanel from "./Sidepanel/Sidepanel";
-import Message from "./Message/Message";
+import { Sidepanel } from "./Sidepanel/Sidepanel";
+import { Message } from "./Message/Message";
 
 interface bodyProps {
   user: string | null;
@@ -11,7 +11,7 @@ interface bodyObj {
     DM: string[],
     Application: string[],
 }
-var bodyObject: bodyObj = { Channels: [], DM: [], Application: []};
+let bodyObject: bodyObj = { Channels: [], DM: [], Application: []};
 function Body({ user }: bodyProps) {
   useEffect(() => {
     async function fetchBody(url: string) {
@@ -19,12 +19,9 @@ function Body({ user }: bodyProps) {
         .then((res) => res.json())
         .then((data) => {
           bodyObject = data;
-          console.log(data);
         });
-      await console.log(bodyObject);
     }
-    fetchBody("http://localhost:8080/");
-    // await console.log(bodyObject);
+    fetchBody(`http://localhost:8080/${user}`);
   });
 
   return (
@@ -39,4 +36,4 @@ function Body({ user }: bodyProps) {
   );
 }
 
-export default Body;
+export { Body };

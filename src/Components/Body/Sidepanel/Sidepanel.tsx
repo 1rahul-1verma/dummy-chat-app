@@ -25,4 +25,4 @@ function Sidepanel({ channels, friends, application}: sidePanel) {
   );
 }
 
-export default Sidepanel;
+export { Sidepanel };

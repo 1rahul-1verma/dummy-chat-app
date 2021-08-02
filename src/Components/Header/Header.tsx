@@ -15,4 +15,4 @@ function Header({ user} : headerProps) {
     )
 }
 
-export default Header
+export { Header };

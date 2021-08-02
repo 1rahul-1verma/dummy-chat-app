@@ -1,5 +1,6 @@
 .header-container {
     height: 2vh;
+    position: fixed;
     background-color: rgb(73, 0, 73);
     position: sticky;
     font-size: larger;

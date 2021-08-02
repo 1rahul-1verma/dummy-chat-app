@@ -12,8 +12,8 @@ function Channels() {
     return (
         <div className="channel-container">
             Channels
-            {channelList.map(channel => {
-                return <li className="channel"> {channel} </li>
+            {channelList.map((channel, indx) => {
+                return <li key = {indx} className="channel"> {channel} </li>
             })}
         </div>
     )
