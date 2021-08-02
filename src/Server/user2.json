@@ -1,0 +1,20 @@
+{
+    "Channels" :[
+        "campus-fte",
+        "campus-fte-june",
+        "company-announcement",
+        "help-onboard-june-21",
+        "office-gurgaon",
+        "julysplash21-india-campus",
+        "frontend-team"
+    ],
+    "DirectMessages" : [
+        "Slackbot",
+        "USER TWO",
+        "USER ONE",
+        "USER THREE"
+    ],
+    "Apps" : [
+        "Google Calender"
+    ]
+}
