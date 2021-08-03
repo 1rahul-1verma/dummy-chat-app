@@ -1,7 +1,9 @@
 const { readFile } = require("../Util/readFile");
+const USER_FILE = require("../../constants");
+
 class UserController {
   constructor() {
-    this.file = "/Users/rahul/Desktop/Practice/dummy-chat/src/Server/user.json";
+    this.file = USER_FILE;
   }
 
   getUsers() {

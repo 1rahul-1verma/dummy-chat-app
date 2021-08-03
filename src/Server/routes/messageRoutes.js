@@ -19,7 +19,6 @@ messageRoutes.get("/id", (req, res) => {
 
 messageRoutes.post("/", (req, res) => {
   const payload = req.body;
-  console.log(payload);
   messageController
     .postMessage(payload)
     .then((data) => {

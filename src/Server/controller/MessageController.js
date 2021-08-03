@@ -1,9 +1,10 @@
 const { readFile } = require("../Util/readFile");
 const { writeFile } = require("../Util/writeFIle");
+const MESSAGE_FILE = require("../../constants");
+
 class MessageController {
   constructor() {
-    this.file =
-      "/Users/rahul/Desktop/Practice/dummy-chat/src/Server/message.json";
+    this.file = MESSAGE_FILE;
   }
 
   getMessage(messageId) {
