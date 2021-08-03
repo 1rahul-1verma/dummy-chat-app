@@ -1,21 +1,26 @@
 import React from "react";
-import './FriendList.css';
+import "./FriendList.css";
 
-const friendList: string[] = [
-  "Slackbot",
-  "Rahul Verma",
-  "Aditya Vikram Choudhary",
-  "Raghav Yadav",
-];
-function FriendList() {
-    return (
-        <div className="friend-container">
-            Direct Messages
-            {friendList.map((friend, indx) => {
-                return <li key={ indx} className="friend"> { friend } </li>
-            })}
+interface friendListPros {
+  friends: string[];
+  handleSelectedChat: (chat: String) => void;
+}
+
+function FriendList({ friends, handleSelectedChat }: friendListPros) {
+  return (
+    <div className="friend-container">
+      Direct Messages
+      {friends.map((friend, indx) => (
+        <div
+          key={indx}
+          className="friend"
+          onClick={(e) => handleSelectedChat(e.currentTarget.innerText)}
+        >
+          {friend}
         </div>
-    );
+      ))}
+    </div>
+  );
 }
 
 export default FriendList;

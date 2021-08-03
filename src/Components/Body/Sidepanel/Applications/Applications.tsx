@@ -1,13 +1,24 @@
 import React from "react";
 import "./Applications.css";
-const applicationList: string[] = ["Google Calender"];
-function Application() {
+
+interface applicationProps {
+  applications: string[];
+  handleSelectedChat: (chat: String) => void;
+}
+
+function Application({ applications, handleSelectedChat }: applicationProps) {
   return (
     <div className="applications-container">
       Apps
-      {applicationList.map((app, indx) => {
-        return <li key = {indx} className="app"> {app} </li>;
-      })}
+      {applications.map((app, indx) => (
+        <div
+          key={indx}
+          className="app"
+          onClick={(e) => handleSelectedChat(e.currentTarget.innerText)}
+        >
+          {app}
+        </div>
+      ))}
     </div>
   );
 }

@@ -4,10 +4,13 @@ import { MessageBox } from './MessageBox/MessageBox';
 import { MessageHeader } from './MessageHeader/MessageHeader';
 import "./Message.css";
 
-function Message() {
+interface messageProps {
+    activeChat: String;
+}
+function Message({ activeChat }: messageProps) {
     return (
         <div className="message-container">
-            <MessageHeader />
+            <MessageHeader activeChat={ activeChat}/>
             <MessageBody />
             <MessageBox />
         </div>

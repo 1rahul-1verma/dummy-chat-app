@@ -8,19 +8,16 @@ import Applications from "./Applications/Applications";
 interface sidePanel {
   channels: string[];
   friends: string[];
-  application: string[];
+  applications: string[];
+  handleSelectedChat: (chat: String) => void 
 }
-function Sidepanel({ channels, friends, application}: sidePanel) {
+function Sidepanel({ channels, friends, applications, handleSelectedChat}: sidePanel) {
   return (
     <div className="container">
       <SideHeader />
-      {channels}
-      {friends}
-      {application}
-      
-      <Channels />
-      <FriendList />
-      <Applications />
+      <Channels channels={channels} handleSelectedChat={ handleSelectedChat}/>
+      <FriendList friends={ friends} handleSelectedChat={ handleSelectedChat}/>
+      <Applications applications={ applications} handleSelectedChat={ handleSelectedChat}/>
     </div>
   );
 }
