@@ -1,0 +1,32 @@
+{
+  "1": {
+    "id": "1",
+    "senderId": "1",
+    "content": "Hey User 2!!",
+    "timeStamp": "1627971862104"
+  },
+  "2": {
+    "id": "2",
+    "senderId": "2",
+    "content": "Hey User 1!!",
+    "timeStamp": "1627971917523"
+  },
+  "3": {
+    "id": "3",
+    "senderId": "3",
+    "content": "Hey User 2!!",
+    "timeStamp": "1627972033485"
+  },
+  "4": {
+    "id": "4",
+    "senderId": "3",
+    "content": "Hey User 2!!",
+    "timeStamp": "1627972033485"
+  },
+  "6": {
+    "id": "6",
+    "senderId": "1",
+    "content": "I'm User one, Thank you",
+    "timeStamp": "1627972066521"
+  }
+}
