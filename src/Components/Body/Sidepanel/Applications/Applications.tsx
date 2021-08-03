@@ -7,17 +7,18 @@ interface applicationProps {
 }
 
 function Application({ applications, handleSelectedChat }: applicationProps) {
-
-  function handleClickChange(e: React.MouseEvent<HTMLElement>) {
-      handleSelectedChat(e.currentTarget.innerText);
-    }
-  
   return (
     <div className="applications-container">
       Apps
-      {applications.map((app, indx) => {
-        return <div key={indx} className="app" onClick={ (e) => handleClickChange(e) }> {app} </div>;
-      })}
+      {applications.map((app, indx) => (
+        <div
+          key={indx}
+          className="app"
+          onClick={(e) => handleSelectedChat(e.currentTarget.innerText)}
+        >
+          {app}
+        </div>
+      ))}
     </div>
   );
 }

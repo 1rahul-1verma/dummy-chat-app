@@ -3,42 +3,46 @@ import "./Body.css";
 import { Sidepanel } from "./Sidepanel/Sidepanel";
 import { Message } from "./Message/Message";
 
+const ROOT_URL = require("../../constants");
+
 interface bodyProps {
   user: string | null;
 }
-interface bodyObj {
-    Channels: string[],
-    DirectMessages: string[],
-    Apps: string[],
+interface userSubscriptions {
+  channels: string[];
+  directMessages: string[];
+  apps: string[];
 }
 
 function Body({ user }: bodyProps) {
-  const [userObj, setUserObj] = useState<bodyObj | undefined>(undefined);
+  const [userSubs, setUserSubs] = useState<userSubscriptions | undefined>(
+    undefined
+  );
   const [selectedChat, setSelectedChat] = useState<String>("Slackbot");
   useEffect(() => {
     async function fetchBody(url: string) {
       await fetch(url)
         .then((res) => res.json())
         .then((data) => {
-          setUserObj(data);
+          setUserSubs(data);
           console.log(data);
         });
     }
-    fetchBody(`http://localhost:8080/${user}`);
+    fetchBody(`${ROOT_URL}${user}`);
   }, [user]);
 
-  function handleSelectedChat(activeChat: String): void {
+  const handleSelectedChat = (activeChat: String): void => {
     setSelectedChat(activeChat);
-  }
+  };
   return (
     <div className="Body-container">
       <Sidepanel
-        channels={userObj ? userObj.Channels : []}
-        friends={userObj ? userObj.DirectMessages : []}
-        applications={userObj ? userObj.Apps : []}
-        handleSelectedChat={ handleSelectedChat }
+        channels={userSubs ? userSubs.channels : []}
+        friends={userSubs ? userSubs.directMessages : []}
+        applications={userSubs ? userSubs.apps : []}
+        handleSelectedChat={handleSelectedChat}
       />
-      <Message activeChat={ selectedChat }/>
+      <Message activeChat={selectedChat} />
     </div>
   );
 }
