@@ -1,23 +1,38 @@
 import React from "react";
 import SideHeader from "./SideHeader/SideHeader";
+import {Channels} from "./Channels/Channels";
+import {FriendList} from "./FriendList/FriendList";
 import "./Sidepanel.css";
-import Channels from "./Channels/Channels";
-import FriendList from "./FriendList/FriendList";
-import Applications from "./Applications/Applications";
 
 interface sidePanel {
   channels: string[];
   friends: string[];
-  applications: string[];
-  handleSelectedChat: (chat: String) => void 
+  handleSelectedChat: (chat: string) => void;
+  handleSelectedChatId: (chatId: string) => void;
+  handleChatMessages: (messages: string[]) => void;
 }
-function Sidepanel({ channels, friends, applications, handleSelectedChat}: sidePanel) {
+function Sidepanel({
+  channels,
+  friends,
+  handleSelectedChat,
+  handleSelectedChatId,
+  handleChatMessages
+}: sidePanel) {
   return (
     <div className="container">
       <SideHeader />
-      <Channels channels={channels} handleSelectedChat={ handleSelectedChat}/>
-      <FriendList friends={ friends} handleSelectedChat={ handleSelectedChat}/>
-      <Applications applications={ applications} handleSelectedChat={ handleSelectedChat}/>
+      <Channels
+        channels={channels}
+        handleSelectedChat={handleSelectedChat}
+        handleSelectedChatId={handleSelectedChatId}
+        handleChatMessages={ handleChatMessages}
+      />
+      <FriendList
+        friends={friends}
+        handleSelectedChat={handleSelectedChat}
+        handleSelectedChatId={handleSelectedChatId}
+        handleChatMessages={ handleChatMessages}
+      />
     </div>
   );
 }

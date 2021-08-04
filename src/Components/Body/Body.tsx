@@ -1,48 +1,66 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import "./Body.css";
 import { Sidepanel } from "./Sidepanel/Sidepanel";
-import { Message } from "./Message/Message";
+import { MessageContainer } from "./MessageContainer/MessageContainer";
+import { useQuery } from "../../Hooks/useQuery";
 
-const ROOT_URL = require("../../constants");
 
 interface bodyProps {
   user: string | null;
 }
 interface userSubscriptions {
-  channels: string[];
+  id: string;
+  name: string;
   directMessages: string[];
-  apps: string[];
+  channels: string[];
 }
-
 function Body({ user }: bodyProps) {
-  const [userSubs, setUserSubs] = useState<userSubscriptions | undefined>(
-    undefined
-  );
-  const [selectedChat, setSelectedChat] = useState<String>("Slackbot");
-  useEffect(() => {
-    async function fetchBody(url: string) {
-      await fetch(url)
-        .then((res) => res.json())
-        .then((data) => {
-          setUserSubs(data);
-          console.log(data);
-        });
-    }
-    fetchBody(`${ROOT_URL}${user}`);
-  }, [user]);
+  const { data, loading } = useQuery<userSubscriptions>({
+    url: `user/id?userId=${user}`,
+    method: "GET",
+  });
 
-  const handleSelectedChat = (activeChat: String): void => {
+  const [selectedChat, setSelectedChat] = useState("");
+  const [selectedChatId, setSelectedChatId] = useState("");
+  const [messages, setMessages] = useState<string[]>();
+
+  const handleSelectedChat = (activeChat: string): void => {
+    console.log("here.....");
     setSelectedChat(activeChat);
   };
+  
+  const handleSelectedChatId = (activeChatId: string): void => {
+    console.log("here.....");
+    setSelectedChatId(activeChatId);
+  }
+
+  const handleChatMessages = (curMessages: string[]): void => {
+    console.log(curMessages);
+    setMessages(curMessages);
+  }
+
+  const addNewMessage = (newMessage: string): void => {
+    if (messages) {
+      setMessages([...messages, newMessage]);
+
+    } else {
+      setMessages([newMessage]);
+    }
+  }
   return (
     <div className="Body-container">
-      <Sidepanel
-        channels={userSubs ? userSubs.channels : []}
-        friends={userSubs ? userSubs.directMessages : []}
-        applications={userSubs ? userSubs.apps : []}
-        handleSelectedChat={handleSelectedChat}
-      />
-      <Message activeChat={selectedChat} />
+      {!loading && (
+        <>
+          <Sidepanel
+            channels={data ? data.channels : []}
+            friends={data ? data.directMessages : []}
+            handleSelectedChat={handleSelectedChat}
+            handleSelectedChatId={handleSelectedChatId}
+            handleChatMessages={ handleChatMessages}
+          />
+          <MessageContainer sender={ user}activeChat={selectedChat} activeChatId={selectedChatId} messages={messages} addNewMessage={ addNewMessage}/>
+        </>
+      )}
     </div>
   );
 }

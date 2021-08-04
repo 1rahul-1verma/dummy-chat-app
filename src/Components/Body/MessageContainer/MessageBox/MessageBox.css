@@ -1,8 +1,8 @@
-.messagebox-container {
+.messageBox-container {
     height: 80px;
 }
 
-.messagebox-input {
+.messageBox-input {
     height: 60px;
     margin: 10px;
     width: 98%;
