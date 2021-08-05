@@ -27,5 +27,14 @@ chatRoutes.get("/id", (req, res) => {
     .catch((err) => res.end(err.toString()));
 });
 
+chatRoutes.post("/id", (req, res) => {
+  const payload = req.body;
+  chatController.addNewMessageInChat(payload)
+    .then((data) => {
+      console.log("IN CHAT ROUTE");
+      res.end(JSON.stringify(data));
+    })
+    .catch((err) => res.end(err.toString()));
+});
 
 module.exports = { chatRoutes };

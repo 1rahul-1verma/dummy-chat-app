@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useMutation } from "../../../../Hooks/useMutation";
 import "./MessageBox.css";
 const { ROOT_URL } = require("../../../../constants");
 
@@ -7,44 +8,50 @@ interface messageBoxProps {
   addNewMessage: (message: string) => void;
 }
 
+type messageInformation = {
+  id: string;
+  senderId: string;
+  content: string;
+  timeStamp: string;
+}
+
 function MessageBox({ sender, addNewMessage }: messageBoxProps) {
   const [newMessage, setNewMessage] = useState("");
+  const { mutate } = useMutation<messageInformation>(
+    data => {
+      const options = {
+        method: "POST",
+        body: JSON.stringify(data),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      };
+
+      const url = ROOT_URL + "message";
+      return fetch(url, options);
+    }
+  );
+
   const handleNewMessage = (
     e: React.ChangeEvent<HTMLTextAreaElement>
   ): void => {
     const { value } = e.target;
     setNewMessage(value);
   };
+
   const handleSend = (): void => {
-    const payload = JSON.stringify({
-      id: "106",
+    const uniqueMessageId = Date.now().toString();
+    const messagePayload ={
+      id: uniqueMessageId,
       senderId: sender,
       content: newMessage,
-      timeStamp: "1627976766521",
-    });
-    fetch(ROOT_URL + "message", {
-      method: "POST",
-      body: payload,
-      headers: {
-        "Content-type": "application/json",
-      },
-    }).then((res) => {
-            console.log("res");
-        if (!res.ok) {
-          throw new Error("Some Error");
-        }
-        return res.json();
-      })
-      .then((data) => {
-        console.log(data);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-    console.log(newMessage, payload);
-    addNewMessage("106");
+      timeStamp: Date.now().toString(),
+    }
+    mutate(messagePayload);
+    addNewMessage(uniqueMessageId);
     setNewMessage("");
   };
+
   return (
     <div className="messageBox-container">
       <textarea

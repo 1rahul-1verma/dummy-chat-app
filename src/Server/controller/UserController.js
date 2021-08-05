@@ -24,12 +24,9 @@ class UserController {
       try {
         const usersJSON = await readFile(this.file);
         const users = JSON.parse(usersJSON);
-        console.log("ONE.. ", userId, Object.keys(users));
         if (!Object.keys(users).includes(userId)) {
-          console.log("TWO.. ");
           reject({});
         }
-        console.log("THREE.. ");
         resolve(users[userId]);
       } catch (err) {
         reject({ ...err });

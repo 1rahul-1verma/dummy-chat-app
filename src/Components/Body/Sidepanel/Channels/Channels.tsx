@@ -18,7 +18,6 @@ function Channels({
   return (
     <div className="channel-container">
       Channels
-      { console.log(channels)}
       {channels.map((channel, indx) => (
         <div key={indx} className="friend">
           <ChatOption

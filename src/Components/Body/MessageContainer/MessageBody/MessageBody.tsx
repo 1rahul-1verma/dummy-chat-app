@@ -9,9 +9,9 @@ interface messageBodyProps {
 function MessageBody({ messages}: messageBodyProps) {
     return (
         <div className="messageBody-container">
-            {messages && messages.map(message => {
+            {messages && messages.map((message, indx) => {
                 return (
-                    <Message message={ message }/>
+                    <Message key={ indx } message={ message }/>
                 )
             })}
         </div>

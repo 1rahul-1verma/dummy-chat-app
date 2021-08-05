@@ -19,9 +19,7 @@ function ChatOption({ chatId, handleSelectedChatId, handleSelectedChat, handleCh
     url: `chat/id?chatId=${chatId}`,
     method: "GET",
     });
-    console.log(data, "chatInfo");
     const handleSelection = (data: chatInformation | undefined): void => {
-        console.log("data", data);
         if (data) {
             handleSelectedChat(data.name);
             handleSelectedChatId(data.id);
@@ -30,7 +28,6 @@ function ChatOption({ chatId, handleSelectedChatId, handleSelectedChat, handleCh
     }
     return (
         <div onClick={ () => handleSelection(data)}>
-            {/* { console.log(data)} */}
             { data?.name }
         </div>
     )
