@@ -1,6 +1,6 @@
 const fs = require("fs");
 
-function writeFile(file, bodyJson) {
+const writeFile = (file, bodyJson) => {
   return new Promise((resolve, reject) => {
     try {
       fs.writeFileSync(file, (bodyJson), (err) => {

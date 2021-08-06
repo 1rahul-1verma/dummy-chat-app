@@ -3,35 +3,46 @@ import SideHeader from "./SideHeader/SideHeader";
 import {Channels} from "./Channels/Channels";
 import {FriendList} from "./FriendList/FriendList";
 import "./Sidepanel.css";
+import { useQuery } from "../../../Hooks/useQuery";
 
-interface sidePanel {
-  channels: string[];
-  friends: string[];
+interface sidePanelProps {
+  skip: boolean;
+  user: string | null;
   handleSelectedChat: (chat: string) => void;
   handleSelectedChatId: (chatId: string) => void;
-  handleChatMessages: (messages: string[]) => void;
+  handleFormOpen: () => void;
+}
+interface userSubscriptions {
+  id: string;
+  name: string;
+  directMessages: string[];
+  channels: string[];
 }
 function Sidepanel({
-  channels,
-  friends,
+  skip,
+  user,
   handleSelectedChat,
   handleSelectedChatId,
-  handleChatMessages
-}: sidePanel) {
+  handleFormOpen
+}: sidePanelProps) {
+  const { data, loading } = useQuery<userSubscriptions>({
+    url: `user/id?userId=${user}`,
+    method: "GET",
+    skip: skip,
+  });
   return (
     <div className="container">
       <SideHeader />
       <Channels
-        channels={channels}
+        channels={data?.channels}
         handleSelectedChat={handleSelectedChat}
         handleSelectedChatId={handleSelectedChatId}
-        handleChatMessages={ handleChatMessages}
+        handleFormOpen={ handleFormOpen}
       />
       <FriendList
-        friends={friends}
+        friends={data?.directMessages}
         handleSelectedChat={handleSelectedChat}
         handleSelectedChatId={handleSelectedChatId}
-        handleChatMessages={ handleChatMessages}
       />
     </div>
   );

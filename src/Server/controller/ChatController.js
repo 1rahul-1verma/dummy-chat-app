@@ -1,6 +1,6 @@
 const { readFile } = require("../Util/readFile");
-const { CHAT_FILE } = require("../../constants");
 const { writeFile } = require("../Util/writeFile");
+const { CHAT_FILE } = require("../../constants");
 
 class ChatController {
   constructor() {
@@ -38,7 +38,6 @@ class ChatController {
     return new Promise(async (resolve, reject) => {
       try {
         const { chatId, messageId } = payload;
-        console.log(chatId, messageId, "new message chat");
         const oldChatData = await this.getChats();
         const oldChatID_Data = await this.getChatById(chatId);
         const newChatID_Data = {
@@ -49,10 +48,27 @@ class ChatController {
           ...oldChatData,
           [chatId]: newChatID_Data,
         };
-        // console.log(newChatData, "NEW...");
         const newChatDataJson = JSON.stringify(newChatData);
         await writeFile(this.file, newChatDataJson);
         resolve(newChatID_Data);
+      } catch (err) {
+        reject({ ...err });
+      }
+    });
+  }
+
+  addNewChatRoom(payload) {
+    return new Promise(async (resolve, reject) => {
+      try {
+        const oldChatJson = await readFile(this.file);
+        const oldChat = JSON.parse(oldChatJson);
+        const newChat = {
+          ...oldChat,
+          [payload.id]: payload
+        };
+        const newChatJson = JSON.stringify(newChat);
+        await writeFile(this.file, newChatJson);
+        resolve(payload);
       } catch (err) {
         reject({ ...err });
       }

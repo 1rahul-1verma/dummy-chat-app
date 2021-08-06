@@ -1,0 +1,23 @@
+.Message-container {
+    position: relative;
+    overflow: auto;
+    display: flex;
+    flex-direction: column;
+}
+
+[data-sender] { 
+    width: 500px;
+    border: 1px solid black;
+    margin: 5px;
+    border-radius: 5px;
+    overflow: auto;
+}
+
+[data-sender=true] {
+    background-color: #3F0E40;
+    opacity: 80%;
+    margin: 5px;
+    flex: none;
+    align-self: flex-end;
+    color: white;
+}

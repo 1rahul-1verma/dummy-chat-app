@@ -3,28 +3,25 @@ import { ChatOption } from "../ChatOption/ChatOption";
 import "./FriendList.css";
 
 interface friendListPros {
-  friends: string[];
+  friends: string[] | undefined;
   handleSelectedChat: (chat: string) => void;
   handleSelectedChatId: (chatId: string) => void;
-  handleChatMessages: (message: string[]) => void;
 }
 
 function FriendList({
   friends,
   handleSelectedChat,
-  handleSelectedChatId,
-  handleChatMessages
+  handleSelectedChatId
 }: friendListPros) {
   return (
-    <div>
+    <div className = "friend-container">
       Direct Messages
-      {friends.map((friend, indx) => (
+      {friends?.map((friend, indx) => (
         <div key={indx} className="friend">
           <ChatOption
             chatId={friend}
             handleSelectedChat={handleSelectedChat}
             handleSelectedChatId={handleSelectedChatId}
-            handleChatMessages={ handleChatMessages}
           />
         </div>
       )     )}

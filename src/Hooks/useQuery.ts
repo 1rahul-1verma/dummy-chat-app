@@ -17,7 +17,6 @@ const useQuery = <T>(param: queryParam) => {
 
   useEffect(() => {
     const options = { method };
-    console.log("here in use query");
     if (payload) {
       Object.assign(options, {
         body: JSON.stringify(payload),

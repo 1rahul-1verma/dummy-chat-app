@@ -3,31 +3,31 @@ import { ChatOption } from "../ChatOption/ChatOption";
 import "./Channels.css";
 
 interface channelProps {
-  channels: string[];
+  channels: string[] | undefined;
   handleSelectedChat: (chat: string) => void;
   handleSelectedChatId: (chatId: string) => void;
-  handleChatMessages: (message: string[]) => void;
+  handleFormOpen: () => void;
 }
 
 function Channels({
   channels,
   handleSelectedChat,
   handleSelectedChatId,
-  handleChatMessages,
+  handleFormOpen
 }: channelProps) {
   return (
     <div className="channel-container">
       Channels
-      {channels.map((channel, indx) => (
+      {channels?.map((channel, indx) => (
         <div key={indx} className="friend">
           <ChatOption
             chatId={channel}
             handleSelectedChatId={handleSelectedChatId}
             handleSelectedChat={handleSelectedChat}
-            handleChatMessages={ handleChatMessages}
           />
         </div>
       ))}
+      <button onClick={handleFormOpen} > ADD CHANNEL </button>
     </div>
   );
 }

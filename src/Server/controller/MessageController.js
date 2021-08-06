@@ -28,9 +28,9 @@ class MessageController {
     return new Promise(async (resolve, reject) => {
       try {
         const oldMessageJson = await readFile(this.file);
-        const oldMessage = JSON.parse(oldMessageJson);
+        const oldMessages = JSON.parse(oldMessageJson);
         const newMessages = {
-          ...oldMessage,
+          ...oldMessages,
           [messageJSON.id]: messageJSON,
         };
         const newMessagesJSON = JSON.stringify(newMessages);

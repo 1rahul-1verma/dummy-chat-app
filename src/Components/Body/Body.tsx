@@ -1,20 +1,16 @@
-import React, { useState } from "react";
-import "./Body.css";
+import React, { useState, useEffect } from "react";
 import { Sidepanel } from "./Sidepanel/Sidepanel";
 import { MessageContainer } from "./MessageContainer/MessageContainer";
-import { useQuery } from "../../Hooks/useQuery";
 import { useMutation } from "../../Hooks/useMutation";
 import { ROOT_URL } from "../../constants";
+import { NewChannelForm } from "./NewChannelForm/NewChannelForm";
+import { mutationCallback } from "../Util/mutationCallback";
+import "./Body.css";
 
 interface bodyProps {
   user: string | null;
 }
-interface userSubscriptions {
-  id: string;
-  name: string;
-  directMessages: string[];
-  channels: string[];
-}
+
 type chatInformation = {
   id: string;
   name: string;
@@ -22,29 +18,34 @@ type chatInformation = {
   messages: string[];
   type: string;
 };
-function Body({ user }: bodyProps) {
-  const { data, loading } = useQuery<userSubscriptions>({
-    url: `user/id?userId=${user}`,
-    method: "GET",
-  });
 
+function Body({ user }: bodyProps) {
+  const [skip, setSkip] = useState(false);
   const [selectedChat, setSelectedChat] = useState("");
   const [selectedChatId, setSelectedChatId] = useState("");
-  const [messages, setMessages] = useState<string[]>([]);
-  const [newMessage, setNewMessage] = useState<string>("");
+  const [formOpen, setFormOpen] = useState(false);
   const { mutate } = useMutation<chatInformation>((data) => {
-    console.log(newMessage, "before post call");
     const url = `${ROOT_URL}chat/id`;
-    console.log(`${ROOT_URL}chat/id`);
-    const options = {
-      method: "POST",
-      body: JSON.stringify(data),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    };
-    return fetch(url, options);
+    return mutationCallback(data, url);
   });
+
+  const { mutate: mutateChat } = useMutation<chatInformation>((data) => {
+    const url = `${ROOT_URL}chat/new`;
+    return mutationCallback(data, url);
+  });
+
+  const { mutate: mutateUser } = useMutation<chatInformation>((data) => {
+    const url = `${ROOT_URL}user`;
+    return mutationCallback(data, url);
+  });
+
+  useEffect(() => {
+    const pollingTimer = setInterval(() => {
+      setSkip((prevSkip) => !prevSkip);
+    }, 250);
+
+    return () => clearInterval(pollingTimer);
+  }, []);
 
   const handleSelectedChat = (activeChat: string): void => {
     setSelectedChat(activeChat);
@@ -54,8 +55,8 @@ function Body({ user }: bodyProps) {
     setSelectedChatId(activeChatId);
   };
 
-  const handleChatMessages = (curMessages: string[]): void => {
-    setMessages(curMessages);
+  const handleFormOpen = () => {
+    setFormOpen((prevFormOpen) => !prevFormOpen);
   };
 
   const addNewMessage = (newMessageId: string) => {
@@ -64,34 +65,52 @@ function Body({ user }: bodyProps) {
       messageId: newMessageId,
     };
     mutate(payload);
-    setMessages((prevMessages) => {
-      console.log([...prevMessages, newMessage],newMessage, "inside setMessages");
-      return [...prevMessages, newMessage];
+  };
+
+  const handleFormSubmit = (chatId: string, users: string): void => {
+    console.log(chatId, users);
+    setFormOpen(false);
+    const userList = users.split(",");
+    const newChatId = Date.now().toString();
+    const chatPayload = {
+      id: newChatId,
+      name: chatId,
+      userId: userList,
+      messages: [],
+      type: "2",
+    };
+    userList.forEach((user) => {
+      const userPayload = {
+        chatId: newChatId,
+        userId: user,
+      };
+      console.log(userPayload);
+      mutateUser(userPayload);
     });
-    setNewMessage(newMessageId);
-    console.log(messages, "added new message");
+    mutateChat(chatPayload);
   };
 
   return (
     <div className="Body-container">
-      {!loading && (
-        <>
-          <Sidepanel
-            channels={data ? data.channels : []}
-            friends={data ? data.directMessages : []}
-            handleSelectedChat={handleSelectedChat}
-            handleSelectedChatId={handleSelectedChatId}
-            handleChatMessages={handleChatMessages}
-          />
-          <MessageContainer
-            sender={user}
-            activeChat={selectedChat}
-            activeChatId={selectedChatId}
-            messages={messages}
-            addNewMessage={addNewMessage}
-          />
-        </>
-      )}
+      <Sidepanel
+        skip={skip}
+        user={user}
+        handleSelectedChat={handleSelectedChat}
+        handleSelectedChatId={handleSelectedChatId}
+        handleFormOpen={handleFormOpen}
+      />
+      <MessageContainer
+        sender={user}
+        activeChat={selectedChat}
+        activeChatId={selectedChatId}
+        skip={skip}
+        addNewMessage={addNewMessage}
+      />
+      <NewChannelForm
+        isOpen={formOpen}
+        onClose={() => setFormOpen(false)}
+        onSubmit={handleFormSubmit}
+      />
     </div>
   );
 }

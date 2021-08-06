@@ -1,6 +1,8 @@
 .container {
-    background-color: rgb(73, 0, 73);
-    width: 20vw;
+    display: flex;
+    flex-direction: column;
+    background-color: #3F0E40;
+    width: 250px;
     height: 96vh;
     overflow: auto;
     color: white;

@@ -1,25 +1,27 @@
-import React from 'react';
-import { useQuery } from '../../../../../Hooks/useQuery';
+import React from "react";
+import { useQuery } from "../../../../../Hooks/useQuery";
+import "./Message.css";
 
 interface messageProps {
-    message: string;
+  sender: string | null;
+  message: string;
 }
 type messageInformation = {
-    id: string,
-    senderId: string,
-    content: string,
-    timeStamp: string,
-}
-function Message({ message }: messageProps) {
-    const { data, loading } = useQuery<messageInformation>({
-        url: `message/id?messageId=${message}`,
-        method: "GET",
-    })
-    return (
-        <div>
-            { data?.content}
-        </div>
-    )
+  id: string;
+  senderId: string;
+  content: string;
+  timeStamp: string;
+};
+function Message({ sender, message }: messageProps) {
+  const { data } = useQuery<messageInformation>({
+    url: `message/id?messageId=${message}`,
+    method: "GET",
+  });
+  return (
+    <div className="Message-container">
+      <div data-sender={sender === data?.senderId}>{data?.content}</div>
+    </div>
+  );
 }
 
 export { Message };

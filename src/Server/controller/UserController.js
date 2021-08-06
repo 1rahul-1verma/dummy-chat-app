@@ -1,4 +1,5 @@
 const { readFile } = require("../Util/readFile");
+const { writeFile } = require("../Util/writeFile");
 const {USER_FILE} = require("../../constants");
 
 class UserController {
@@ -19,7 +20,6 @@ class UserController {
   }
 
   getUserById(userId) {
-    console.log("GET USER BY ID")
     return new Promise(async (resolve, reject) => {
       try {
         const usersJSON = await readFile(this.file);
@@ -28,6 +28,31 @@ class UserController {
           reject({});
         }
         resolve(users[userId]);
+      } catch (err) {
+        reject({ ...err });
+      }
+    });
+  }
+
+  addUserChat(payload) {
+    return new Promise(async (resolve, reject) => {
+      try {
+        const { chatId, userId } = payload;
+        console.log(payload);
+        console.log(payload);
+        const oldUserData = await this.getUsers();
+        const oldUserID_Data = await this.getUserById(userId);
+        const newUserID_Data = {
+          ...oldUserID_Data,
+          channels: [...oldUserID_Data.channels, chatId]
+        };
+        const newUserData = {
+          ...oldUserData,
+          [userId]: newUserID_Data,
+        };
+        const newUserDataJson = JSON.stringify(newUserData);
+        await writeFile(this.file, newUserDataJson);
+        resolve(newUserID_Data);
       } catch (err) {
         reject({ ...err });
       }
