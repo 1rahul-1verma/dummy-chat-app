@@ -6,6 +6,21 @@
 }
 
 .channel {
-    margin: 10px;
     color: rgb(199, 197, 197);
+    padding: 2px;
+    padding-left: 20px;
+}
+
+.channel:hover {
+    background-color: #350d36;
+}
+
+.channel-button {
+    cursor: pointer;
+    padding-left: 20px;
+    background-color:  #3F0E40;
+}
+
+[data-selected=true], [data-selected=true]:hover {
+    background-color: #1164A3;
 }

@@ -2,7 +2,7 @@ import React from 'react'
 import "./MessageHeader.css"
 
 interface messageHeaderProps {
-    activeChat: string;
+    activeChat: string | undefined;
 }
 function MessageHeader({ activeChat }: messageHeaderProps) {
     return (

@@ -1,11 +1,13 @@
 import React, { useState } from "react";
 import { useMutation } from "../../../../Hooks/useMutation";
+import { mutationCallback } from "../../../Util/mutationCallback";
 import "./MessageBox.css";
+
 const { ROOT_URL } = require("../../../../constants");
 
 interface messageBoxProps {
   sender: string | null;
-  addNewMessage: (message: string) => void;
+  activeChatId: string;
 }
 
 type messageInformation = {
@@ -15,22 +17,26 @@ type messageInformation = {
   timeStamp: string;
 }
 
-function MessageBox({ sender, addNewMessage }: messageBoxProps) {
-  const [newMessage, setNewMessage] = useState("");
-  const { mutate } = useMutation<messageInformation>(
-    data => {
-      const options = {
-        method: "POST",
-        body: JSON.stringify(data),
-        headers: {
-          "Content-Type": "application/json",
-        },
-      };
+type chatInformation = {
+  id: string;
+  name: string;
+  userId: string[];
+  messages: string[];
+  type: string;
+};
 
-      const url = ROOT_URL + "message";
-      return fetch(url, options);
-    }
-  );
+function MessageBox({ sender, activeChatId }: messageBoxProps) {
+  const [newMessage, setNewMessage] = useState("");
+
+  const { mutate: mutateMessage } = useMutation<messageInformation>((data) => {
+    const url = `${ROOT_URL}message`;
+    return mutationCallback(data, url);
+  });
+
+  const { mutate: mutateChat } = useMutation<chatInformation>((data) => {
+    const url = `${ROOT_URL}chat/id`;
+    return mutationCallback(data, url);
+  });
 
   const handleNewMessage = (
     e: React.ChangeEvent<HTMLTextAreaElement>
@@ -39,7 +45,7 @@ function MessageBox({ sender, addNewMessage }: messageBoxProps) {
     setNewMessage(value);
   };
 
-  const handleSend = (): void => {
+  const handleMessageSend = (): void => {
     const uniqueMessageId = Date.now().toString();
     const messagePayload ={
       id: uniqueMessageId,
@@ -47,8 +53,13 @@ function MessageBox({ sender, addNewMessage }: messageBoxProps) {
       content: newMessage,
       timeStamp: Date.now().toString(),
     }
-    mutate(messagePayload);
-    addNewMessage(uniqueMessageId);
+    mutateMessage(messagePayload);
+
+    const chatPayload = {
+      chatId: activeChatId,
+      messageId: uniqueMessageId,
+    };
+    mutateChat(chatPayload);
     setNewMessage("");
   };
 
@@ -60,7 +71,7 @@ function MessageBox({ sender, addNewMessage }: messageBoxProps) {
         value={newMessage}
         onChange={handleNewMessage}
       />
-      <button onClick={handleSend}> Send </button>
+      <button className="message-box-button" onClick={handleMessageSend}> Send </button>
     </div>
   );
 }

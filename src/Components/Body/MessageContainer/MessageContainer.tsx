@@ -1,16 +1,14 @@
-import React from "react";
+import React, { useContext } from "react";
 import { MessageBody } from "./MessageBody/MessageBody";
 import { MessageBox } from "./MessageBox/MessageBox";
 import { MessageHeader } from "./MessageHeader/MessageHeader";
-import "./MessageContainer.css";
 import { useQuery } from "../../../Hooks/useQuery";
+import { UserContext } from "../../../App";
+import "./MessageContainer.css";
 
 interface messageProps {
-  sender: string | null;
-  activeChat: string;
   activeChatId: string;
   skip: boolean;
-  addNewMessage: (newMessage: string) => void;
 }
 
 type chatInformation = {
@@ -22,22 +20,21 @@ type chatInformation = {
 };
 
 function MessageContainer({
-  activeChat,
   activeChatId,
-  addNewMessage,
-  sender,
   skip,
 }: messageProps) {
+  const sender = useContext(UserContext);
   const { data } = useQuery<chatInformation>({
     url: `chat/id?chatId=${activeChatId}`,
     method: "GET",
     skip: skip,
   });
+
   return (
     <div className="message-container">
-      <MessageHeader activeChat={activeChat} />
+      <MessageHeader activeChat={data?.name} />
       <MessageBody sender={sender} messages={data?.messages} />
-      <MessageBox sender={sender} addNewMessage={addNewMessage} />
+      <MessageBox sender={sender} activeChatId={activeChatId} />
     </div>
   );
 }

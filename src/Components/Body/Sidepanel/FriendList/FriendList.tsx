@@ -4,24 +4,23 @@ import "./FriendList.css";
 
 interface friendListPros {
   friends: string[] | undefined;
-  handleSelectedChat: (chat: string) => void;
-  handleSelectedChatId: (chatId: string) => void;
+  SelectedFriend: string;
+  handleSelectedFriendId: (chatId: string) => void;
 }
 
 function FriendList({
   friends,
-  handleSelectedChat,
-  handleSelectedChatId
+  SelectedFriend,
+  handleSelectedFriendId
 }: friendListPros) {
   return (
     <div className = "friend-container">
       Direct Messages
       {friends?.map((friend, indx) => (
-        <div key={indx} className="friend">
+        <div key={indx} className="friend" data-selected={ SelectedFriend===friend}>
           <ChatOption
             chatId={friend}
-            handleSelectedChat={handleSelectedChat}
-            handleSelectedChatId={handleSelectedChatId}
+            handleSelectedChatId={handleSelectedFriendId}
           />
         </div>
       )     )}

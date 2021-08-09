@@ -39,6 +39,11 @@
     color: black;
 }
 
+.form-button-create:hover{
+    background-color: black;
+    color: darkgray;
+}
+
 .form-button-close {
     position: fixed;
     top: 20px;
@@ -46,6 +51,10 @@
     font-size: 20px;
     background-color: white;
     border: 0px;
+}
+
+.form-button-close:hover {
+    background-color: gray;
 }
 
 .form-label {

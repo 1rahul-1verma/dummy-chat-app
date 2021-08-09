@@ -1,11 +1,10 @@
-import React from 'react'
+import React, { useContext } from 'react';
+import { UserContext } from '../../App';
 import './Header.css';
 
-interface headerProps{
-    user: string | null;
-}
 
-function Header({ user} : headerProps) {
+function Header() {
+    const user = useContext(UserContext);
     return (
         <div className = "Header-container">
             <form>

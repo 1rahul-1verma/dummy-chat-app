@@ -1,15 +1,15 @@
-import React from "react";
+import React, { useContext } from "react";
 import SideHeader from "./SideHeader/SideHeader";
 import {Channels} from "./Channels/Channels";
 import {FriendList} from "./FriendList/FriendList";
-import "./Sidepanel.css";
 import { useQuery } from "../../../Hooks/useQuery";
+import { UserContext } from "../../../App";
+import "./Sidepanel.css";
 
 interface sidePanelProps {
   skip: boolean;
-  user: string | null;
-  handleSelectedChat: (chat: string) => void;
-  handleSelectedChatId: (chatId: string) => void;
+  selectedListItem: string;
+  handleSelectedListId: (chatId: string) => void;
   handleFormOpen: () => void;
 }
 interface userSubscriptions {
@@ -20,12 +20,12 @@ interface userSubscriptions {
 }
 function Sidepanel({
   skip,
-  user,
-  handleSelectedChat,
-  handleSelectedChatId,
+  selectedListItem,
+  handleSelectedListId,
   handleFormOpen
 }: sidePanelProps) {
-  const { data, loading } = useQuery<userSubscriptions>({
+  const user = useContext(UserContext);
+  const { data } = useQuery<userSubscriptions>({
     url: `user/id?userId=${user}`,
     method: "GET",
     skip: skip,
@@ -34,15 +34,15 @@ function Sidepanel({
     <div className="container">
       <SideHeader />
       <Channels
+        SelectedChannel={selectedListItem}
         channels={data?.channels}
-        handleSelectedChat={handleSelectedChat}
-        handleSelectedChatId={handleSelectedChatId}
+        handleSelectedChannelId={handleSelectedListId}
         handleFormOpen={ handleFormOpen}
       />
       <FriendList
+        SelectedFriend={selectedListItem}
         friends={data?.directMessages}
-        handleSelectedChat={handleSelectedChat}
-        handleSelectedChatId={handleSelectedChatId}
+        handleSelectedFriendId={handleSelectedListId}
       />
     </div>
   );

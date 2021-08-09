@@ -4,30 +4,29 @@ import "./Channels.css";
 
 interface channelProps {
   channels: string[] | undefined;
-  handleSelectedChat: (chat: string) => void;
-  handleSelectedChatId: (chatId: string) => void;
+  SelectedChannel: string;
+  handleSelectedChannelId: (chatId: string) => void;
   handleFormOpen: () => void;
 }
 
 function Channels({
   channels,
-  handleSelectedChat,
-  handleSelectedChatId,
+  SelectedChannel,
+  handleSelectedChannelId,
   handleFormOpen
 }: channelProps) {
   return (
     <div className="channel-container">
       Channels
       {channels?.map((channel, indx) => (
-        <div key={indx} className="friend">
+        <div key={indx} className="channel" data-selected={SelectedChannel===channel}>
           <ChatOption
             chatId={channel}
-            handleSelectedChatId={handleSelectedChatId}
-            handleSelectedChat={handleSelectedChat}
+            handleSelectedChatId={handleSelectedChannelId}
           />
         </div>
       ))}
-      <button onClick={handleFormOpen} > ADD CHANNEL </button>
+      <div className="channel-button" onClick={handleFormOpen} > Add channels </div>
     </div>
   );
 }

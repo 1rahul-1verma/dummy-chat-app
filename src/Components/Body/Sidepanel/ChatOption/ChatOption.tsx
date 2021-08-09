@@ -1,10 +1,10 @@
 import React from "react";
 import { useQuery } from "../../../../Hooks/useQuery";
+import "./ChatOption.css";
 
 interface chatOptionProps {
   chatId: string;
   handleSelectedChatId: (chatId: string) => void;
-  handleSelectedChat: (chat: string) => void;
 }
 type chatInformation = {
   id: string;
@@ -16,19 +16,17 @@ type chatInformation = {
 function ChatOption({
   chatId,
   handleSelectedChatId,
-  handleSelectedChat,
 }: chatOptionProps) {
-  const { data, loading } = useQuery<chatInformation>({
+  const { data } = useQuery<chatInformation>({
     url: `chat/id?chatId=${chatId}`,
     method: "GET",
   });
   const handleSelection = (data: chatInformation | undefined): void => {
     if (data) {
-      handleSelectedChat(data.name);
       handleSelectedChatId(data.id);
     }
   };
-  return <div onClick={() => handleSelection(data)}>{data?.name}</div>;
+  return <div className ="chat-option-container" onClick={() => handleSelection(data)}>{data?.name}</div>;
 }
 
 export { ChatOption };
