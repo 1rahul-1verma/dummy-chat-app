@@ -44,4 +44,13 @@ chatRoutes.post("/new", (req, res) => {
     .catch((err) => res.end(err.toString()));
 });
 
+chatRoutes.post("/newUser", (req, res) => {
+  const payload = req.body;
+  chatController.addNewMember(payload)
+    .then((data) => {
+      res.end(JSON.stringify(data));
+    })
+    .catch((err) => res.end(err.toString()));
+});
+
 module.exports = { chatRoutes };

@@ -17,6 +17,7 @@ interface userSubscriptions {
   name: string;
   directMessages: string[];
   channels: string[];
+  avatar: string;
 }
 function Sidepanel({
   skip,

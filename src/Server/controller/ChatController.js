@@ -74,6 +74,34 @@ class ChatController {
       }
     });
   }
+
+  addNewMember(payload) {
+    return new Promise(async (resolve, reject) => {
+      try {
+        const { chatId, userId } = payload;
+        const oldChatData = await this.getChats();
+        const oldChatID_Data = await this.getChatById(chatId);
+        if (oldChatID_Data.userID.includes(userId)) {
+          resolve(oldChatID_Data);
+          return;
+        }
+        const newChatID_Data = {
+          ...oldChatID_Data,
+          userID: [...oldChatID_Data.userID, userId]
+        };
+        console.log(oldChatID_Data["userId"], Object.keys(oldChatID_Data));
+        const newChatData = {
+          ...oldChatData,
+          [chatId]: newChatID_Data,
+        };
+        const newChatDataJson = JSON.stringify(newChatData);
+        await writeFile(this.file, newChatDataJson);
+        resolve(newChatID_Data);
+      } catch (err) {
+        reject({ ...err });
+      }
+    });
+  }
 }
 
 module.exports = { ChatController };

@@ -1,5 +1,7 @@
 .messageBody-container {
     overflow: auto;
-    height: 750px;
+    height: 740px;
     padding: 8px;
+    transform: rotate(180deg);
+    direction: rtl;
 }

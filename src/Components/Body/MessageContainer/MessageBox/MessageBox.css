@@ -1,21 +1,23 @@
 .messageBox-container {
     display: flex;
-    height: 80px;
+    height: 40px;
+    margin: 5px;
 }
 
 .messageBox-input {
-    height: 60px;
-    margin: 10px;
-    width: 98%;
+    margin-left: 100px;
+    height: 40px;
+    margin: 6px;
+    width: 88%;
     font-family: Arial, Helvetica, sans-serif;
     font-size: medium;
     border-radius: 4px;
 }
 
 .message-box-button{
-    height: 60px;
-    width: 60px;
-    margin: 10px;
+    height: 40px;
+    width: 45px;
+    margin: 6px;
     background-color: white;
     border: 1px solid black;
     border-radius: 4px;

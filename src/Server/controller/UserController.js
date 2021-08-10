@@ -38,10 +38,12 @@ class UserController {
     return new Promise(async (resolve, reject) => {
       try {
         const { chatId, userId } = payload;
-        console.log(payload);
-        console.log(payload);
         const oldUserData = await this.getUsers();
         const oldUserID_Data = await this.getUserById(userId);
+        if (oldUserID_Data.channels.includes(chatId)) {
+          resolve(oldUserID_Data);
+          return;
+        }
         const newUserID_Data = {
           ...oldUserID_Data,
           channels: [...oldUserID_Data.channels, chatId]

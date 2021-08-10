@@ -17,7 +17,8 @@ type userInformation = {
   name: string;
   channels: string[];
   directMessages: string[];
-}
+  avatar: string;
+};
 function Message({ sender, message }: messageProps) {
   const { data } = useQuery<messageInformation>({
     url: `message/id?messageId=${message}`,
@@ -29,9 +30,14 @@ function Message({ sender, message }: messageProps) {
   });
   return (
     <div className="Message-container">
-      <div data-sender={sender === data?.senderId}>
-        <b> {user?.name} { data?.timeStamp}</b>
-        <p>{data?.content}</p>
+      <div className="message" data-sender={sender === data?.senderId}>
+        <div>
+          <img className="message-avatar" src={user?.avatar} alt="avatar" />
+        </div>
+        <div className="message-content-container">
+          <div className="sender-name">{user?.name} :</div>
+          <div className="message-content">{data?.content}</div>
+        </div>
       </div>
     </div>
   );

@@ -17,7 +17,7 @@ function Channels({
 }: channelProps) {
   return (
     <div className="channel-container">
-      Channels
+      <b>Channels</b>
       {channels?.map((channel, indx) => (
         <div key={indx} className="channel" data-selected={SelectedChannel===channel}>
           <ChatOption

@@ -22,5 +22,6 @@
 }
 
 [data-selected=true], [data-selected=true]:hover {
+    font-weight: bold;
     background-color: #1164A3;
 }

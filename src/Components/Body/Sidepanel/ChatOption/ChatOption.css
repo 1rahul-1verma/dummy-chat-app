@@ -1,4 +1,5 @@
 .chat-option-container{
+    margin: 5px;
     height: 24px;
     cursor: pointer;
 }

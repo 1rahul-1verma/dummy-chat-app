@@ -15,7 +15,7 @@ function FriendList({
 }: friendListPros) {
   return (
     <div className = "friend-container">
-      Direct Messages
+      <b>Direct Messages</b>
       {friends?.map((friend, indx) => (
         <div key={indx} className="friend" data-selected={ SelectedFriend===friend}>
           <ChatOption

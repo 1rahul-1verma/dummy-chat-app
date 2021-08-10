@@ -15,7 +15,7 @@ type messageInformation = {
   senderId: string;
   content: string;
   timeStamp: string;
-}
+};
 
 type chatInformation = {
   id: string;
@@ -47,12 +47,12 @@ function MessageBox({ sender, activeChatId }: messageBoxProps) {
 
   const handleMessageSend = (): void => {
     const uniqueMessageId = Date.now().toString();
-    const messagePayload ={
+    const messagePayload = {
       id: uniqueMessageId,
       senderId: sender,
       content: newMessage,
       timeStamp: Date.now().toString(),
-    }
+    };
     mutateMessage(messagePayload);
 
     const chatPayload = {
@@ -71,7 +71,13 @@ function MessageBox({ sender, activeChatId }: messageBoxProps) {
         value={newMessage}
         onChange={handleNewMessage}
       />
-      <button className="message-box-button" onClick={handleMessageSend}> Send </button>
+      <button
+        disabled={newMessage === ""}
+        className="message-box-button"
+        onClick={handleMessageSend}
+      >
+        Send
+      </button>
     </div>
   );
 }
