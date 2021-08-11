@@ -28,14 +28,18 @@ function ChatBody({ sender, messages }: messageBodyProps) {
 
   return (
     <div className="chat-body-container">
-      <FixedSizeList
+      {messages &&
+        messages.map((message) => {
+          return <Message sender={sender} key={message} message={message} />;
+        })}
+      {/* <FixedSizeList
         height={1000}
         width={600}
         itemSize={150}
         itemCount={messages ? messages.length : 0}
       >
         {Row}
-      </FixedSizeList>
+      </FixedSizeList> */}
     </div>
   );
 }
