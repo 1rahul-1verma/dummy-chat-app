@@ -35,13 +35,13 @@ function Sidepanel({
       <Channels
         SelectedChannel={selectedListItem}
         channels={data?.channels}
-        handleSelectedChannelId={handleSelectedListId}
+        handleSelectedChannelId={handleSelectedListItem}
         handleFormOpen={handleFormOpen}
       />
       <FriendList
         SelectedFriend={selectedListItem}
         friends={data?.directMessages}
-        handleSelectedFriendId={handleSelectedListId}
+        handleSelectedFriendId={handleSelectedListItem}
       />
     </div>
   );
