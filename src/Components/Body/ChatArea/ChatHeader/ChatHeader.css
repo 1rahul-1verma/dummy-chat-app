@@ -1,6 +1,5 @@
-.message-header-container {
+.chat-header-container {
     height: 32px;
-    width: 1650px;
     position: sticky;
     font-size: larger;
     text-align: left;

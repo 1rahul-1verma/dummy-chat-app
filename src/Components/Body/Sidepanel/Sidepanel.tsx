@@ -7,9 +7,8 @@ import { UserContext } from "../../../App";
 import "./Sidepanel.css";
 
 interface sidePanelProps {
-  skip: boolean;
   selectedListItem: string;
-  handleSelectedListId: (chatId: string) => void;
+  handleSelectedListItem: (chatId: string) => void;
   handleFormOpen: () => void;
 }
 interface userSubscriptions {
@@ -20,16 +19,15 @@ interface userSubscriptions {
   avatar: string;
 }
 function Sidepanel({
-  skip,
   selectedListItem,
-  handleSelectedListId,
+  handleSelectedListItem,
   handleFormOpen
 }: sidePanelProps) {
   const user = useContext(UserContext);
   const { data } = useQuery<userSubscriptions>({
     url: `user/id?userId=${user}`,
     method: "GET",
-    skip: skip,
+    interval: true,
   });
   return (
     <div className="container">
@@ -38,7 +36,7 @@ function Sidepanel({
         SelectedChannel={selectedListItem}
         channels={data?.channels}
         handleSelectedChannelId={handleSelectedListId}
-        handleFormOpen={ handleFormOpen}
+        handleFormOpen={handleFormOpen}
       />
       <FriendList
         SelectedFriend={selectedListItem}

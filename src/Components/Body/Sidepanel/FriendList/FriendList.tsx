@@ -14,10 +14,10 @@ function FriendList({
   handleSelectedFriendId
 }: friendListPros) {
   return (
-    <div className = "friend-container">
+    <div className="friend-container">
       <b>Direct Messages</b>
       {friends?.map((friend, indx) => (
-        <div key={indx} className="friend" data-selected={ SelectedFriend===friend}>
+        <div key={indx} className="friend" data-selected={SelectedFriend === friend}>
           <ChatOption
             chatId={friend}
             handleSelectedChatId={handleSelectedFriendId}

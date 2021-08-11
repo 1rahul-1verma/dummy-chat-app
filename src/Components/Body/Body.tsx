@@ -1,50 +1,30 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useCallback } from "react";
 import { Sidepanel } from "./Sidepanel/Sidepanel";
-import { MessageContainer } from "./MessageContainer/MessageContainer";
+import { ChatArea } from "./ChatArea/ChatArea";
 import { NewChannelForm } from "./NewChannelForm/NewChannelForm";
+import { useModal } from "../../Hooks/useModal";
 import "./Body.css";
 
 function Body() {
-  const [skip, setSkip] = useState(false);
   const [selectedChatId, setSelectedChatId] = useState("");
-  const [formOpen, setFormOpen] = useState(false);
+  const {
+    isModalOpen: isNewChannelFormOpen,
+    toggleModalState: toggleNewChannelForm,
+  } = useModal();
 
-  useEffect(() => {
-    const pollingTimer = setInterval(() => {
-      setSkip((prevSkip) => !prevSkip);
-    }, 250);
-
-    return () => clearInterval(pollingTimer);
-  }, []);
-
-  const handleSelectedChatId = (activeChatId: string): void => {
+  const handleSelectedChatId = useCallback((activeChatId: string): void => {
     setSelectedChatId(activeChatId);
-  };
-
-  const handleFormOpen = () => {
-    setFormOpen((prevFormOpen) => !prevFormOpen);
-  };
-
-  const handleFormClose = () => {
-    setFormOpen(false);
-  }
+  }, []);
 
   return (
     <div className="Body-container">
       <Sidepanel
-        skip={skip}
-        selectedListItem={ selectedChatId}
-        handleSelectedListId={handleSelectedChatId}
-        handleFormOpen={handleFormOpen}
+        selectedListItem={selectedChatId}
+        handleSelectedListItem={handleSelectedChatId}
+        handleFormOpen={toggleNewChannelForm}
       />
-      <MessageContainer
-        skip={skip}
-        activeChatId={selectedChatId}
-      />
-      <NewChannelForm
-        isOpen={formOpen}
-        onClose={handleFormClose}
-      />
+      <ChatArea activeChatId={selectedChatId} />
+      <NewChannelForm isOpen={isNewChannelFormOpen} onClose={toggleNewChannelForm} />
     </div>
   );
 }

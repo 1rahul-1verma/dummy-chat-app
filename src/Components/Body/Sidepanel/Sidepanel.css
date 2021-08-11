@@ -3,7 +3,9 @@
     flex-direction: column;
     background-color: #3F0E40;
     font-size: large;
-    width: 500px;
+    width: 1000px;
     overflow: auto;
     color: white;
+    width: 15%;
+    border: 1px solid blue;
 }

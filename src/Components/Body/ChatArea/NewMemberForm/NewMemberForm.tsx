@@ -44,6 +44,7 @@ function NewMemberForm({
     mutateChat(newMemberPayload);
     mutateUser(newMemberPayload);
   };
+
   return (
     <>
       {isFormOpen && (
@@ -55,7 +56,7 @@ function NewMemberForm({
               className="form-input"
               value={user}
               placeholder="New Member"
-              onChange={(e) => handleUsers(e)}
+              onChange={handleUsers}
               required
             />
             <button className="form-button-close" onClick={handleFormClose}>

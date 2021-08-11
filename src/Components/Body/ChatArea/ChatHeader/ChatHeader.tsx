@@ -1,18 +1,18 @@
 import React from "react";
-import "./MessageHeader.css";
+import "./ChatHeader.css";
 
-interface messageHeaderProps {
+interface ChatHeaderProps {
   activeChat: string | undefined;
   type: string | undefined;
   handleFormOpen: () => void;
 }
-function MessageHeader({
+function ChatHeader({
   activeChat,
   type,
   handleFormOpen,
-}: messageHeaderProps) {
+}: ChatHeaderProps) {
   return (
-    <div className="message-header-container">
+    <div className="chat-header-container">
       {activeChat}
       {type === "2" && (
         <button className="Add-channel-button" onClick={handleFormOpen}>
@@ -23,4 +23,4 @@ function MessageHeader({
   );
 }
 
-export { MessageHeader };
+export { ChatHeader };

@@ -17,6 +17,7 @@
     margin: 5px;
     /* border-radius: 5px; */
     overflow: auto;
+    /* align-self: flex-end; */
 }
 
 [data-sender=true] {

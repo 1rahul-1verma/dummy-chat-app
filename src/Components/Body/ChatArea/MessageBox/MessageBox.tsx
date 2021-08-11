@@ -5,7 +5,7 @@ import "./MessageBox.css";
 
 const { ROOT_URL } = require("../../../../constants");
 
-interface messageBoxProps {
+interface MessageBoxProps {
   sender: string | null;
   activeChatId: string;
 }
@@ -25,7 +25,7 @@ type chatInformation = {
   type: string;
 };
 
-function MessageBox({ sender, activeChatId }: messageBoxProps) {
+function MessageBox({ sender, activeChatId }: MessageBoxProps) {
   const [newMessage, setNewMessage] = useState("");
 
   const { mutate: mutateMessage } = useMutation<messageInformation>((data) => {
@@ -64,9 +64,9 @@ function MessageBox({ sender, activeChatId }: messageBoxProps) {
   };
 
   return (
-    <div className="messageBox-container">
+    <div className="MessageBox-container">
       <textarea
-        className="messageBox-input"
+        className="MessageBox-input"
         placeholder="Type Message..."
         value={newMessage}
         onChange={handleNewMessage}

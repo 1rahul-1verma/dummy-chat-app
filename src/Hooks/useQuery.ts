@@ -5,15 +5,17 @@ type queryParam = {
   url: string;
   method: string;
   payload?: Object;
+  interval?: boolean;
   skip?: boolean;
 };
 
 const useQuery = <T>(param: queryParam) => {
-  const { url, method, payload, skip = false } = param;
-
+  const { url, method, payload, skip = false, interval } = param;
+  
   const [data, setData] = useState<T | undefined>();
   const [error, setError] = useState<string | undefined>();
   const [loading, setLoading] = useState(!skip);
+  const [queryCount, setQueryCount] = useState(0);
 
   useEffect(() => {
     const options = { method };
@@ -43,7 +45,20 @@ const useQuery = <T>(param: queryParam) => {
           setError(`${err}`);
         });
     }
-  }, [url, method, payload, skip]);
+  }, [url, method, payload, skip, queryCount]);
+
+  useEffect(() => {
+    if (!interval) {
+      return () => { };
+    } else {
+      const queryTimer = setInterval(() => {
+        setQueryCount(Date.now());
+      }, 500);
+      return () => {
+        clearInterval(queryTimer);
+      }
+    }
+  });
     
     return { data, error, loading };
 };
