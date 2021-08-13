@@ -27,7 +27,64 @@ class ChatController {
         if (!Object.keys(chat).includes(chatId)) {
           reject({});
         }
-        resolve(chat[chatId]);
+        let chatInformation = chat[chatId];
+        const messages = chatInformation.messages;
+        const startIndex = Math.max(0, messages.length - 10);
+        chatInformation = {
+          ...chatInformation,
+          messages: messages.slice(startIndex)
+        };
+        resolve(chatInformation);
+      } catch (err) {
+        reject({ ...err });
+      }
+    });
+  }
+
+  getChatsAfter(chatId, lastMessage) {
+    return new Promise(async (resolve, reject) => {
+      try {
+        const chatJSON = await readFile(this.file);
+        const chat = JSON.parse(chatJSON);
+        if (!Object.keys(chat).includes(chatId)) {
+          reject({});
+        }
+        const messages = chat[chatId].messages;
+        const fun = (val) => {
+          return val === lastMessage;
+        }
+        const startIndex = messages.findIndex(fun);
+        if (startIndex === -1 || startIndex === messages.length-1) {
+          resolve([]);
+          return;
+        }
+        console.log(lastMessage, startIndex);
+        resolve(messages.slice(startIndex + 1));
+      } catch (err) {
+        reject({ ...err });
+      }
+    });
+  }
+
+  getChatsByPage(chatId, lastMessage) {
+    return new Promise(async (resolve, reject) => {
+      try {
+        const chatJSON = await readFile(this.file);
+        const chat = JSON.parse(chatJSON);
+        if (!Object.keys(chat).includes(chatId)) {
+          reject({});
+        }
+        const messages = chat[chatId].messages;
+        const fun = (val) => {
+          return val === lastMessage;
+        }
+        const endIndex = messages.findIndex(fun);
+        const startIndex = Math.max(0, endIndex - 10);
+        if (endIndex === -1 || startIndex === endIndex || !lastMessage) {
+          resolve([]);
+          return;
+        }
+        resolve( messages.slice(startIndex, endIndex));
       } catch (err) {
         reject({ ...err });
       }
@@ -38,8 +95,9 @@ class ChatController {
     return new Promise(async (resolve, reject) => {
       try {
         const { chatId, messageId } = payload;
-        const oldChatData = await this.getChats();
-        const oldChatID_Data = await this.getChatById(chatId);
+        const chatsJSON = await readFile(this.file);
+        const oldChatData = JSON.parse(chatsJSON);
+        const oldChatID_Data = oldChatData[chatId];
         const newChatID_Data = {
           ...oldChatID_Data,
           messages: [...oldChatID_Data.messages, messageId]
@@ -89,7 +147,6 @@ class ChatController {
           ...oldChatID_Data,
           userID: [...oldChatID_Data.userID, userId]
         };
-        console.log(oldChatID_Data["userId"], Object.keys(oldChatID_Data));
         const newChatData = {
           ...oldChatData,
           [chatId]: newChatID_Data,

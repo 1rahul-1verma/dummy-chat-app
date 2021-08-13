@@ -14,7 +14,7 @@ type chatInformation = {
   type: string;
 };
 function ChatOption({ chatId, handleSelectedChatId }: chatOptionProps) {
-  const { data } = useQuery<chatInformation>({
+  const { data, loading } = useQuery<chatInformation>({
     url: `chat/id?chatId=${chatId}`,
     method: "GET",
   });
@@ -24,12 +24,18 @@ function ChatOption({ chatId, handleSelectedChatId }: chatOptionProps) {
     }
   };
   return (
-    <div
-      className="chat-option-container"
-      onClick={() => handleSelection(data)}
-    >
-      {data?.name}
-    </div>
+    <>
+      {loading ? (
+        <div> Loading... </div>
+      ) : (
+        <div
+          className="chat-option-container"
+          onClick={() => handleSelection(data)}
+        >
+          {data?.name}
+        </div>
+      )}
+    </>
   );
 }
 

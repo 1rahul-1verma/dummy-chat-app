@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import { ChatBody } from "./ChatBody/ChatBody";
 import { MessageBox } from "./MessageBox/MessageBox";
 import { ChatHeader } from "./ChatHeader/ChatHeader";
@@ -20,21 +20,59 @@ type chatInformation = {
   type: string;
 };
 
-function ChatArea({ activeChatId }: chatAreaProps) {
+function ChatAreaComponent({ activeChatId }: chatAreaProps) {
   const sender = useContext(UserContext);
+  const [messageList, setMessageList] = useState<string[]>([]);
+  
   const { data } = useQuery<chatInformation>({
     url: `chat/id?chatId=${activeChatId}`,
     method: "GET",
+  });
+
+  const { data: prevMessages } = useQuery<string[]>({
+    url: `chat/page?chatId=${activeChatId}&lastMessage=${
+      messageList.length ? messageList[messageList.length - 1] : 0
+    }`,
+    method: "GET",
+    skip: false
+  });
+
+  const { data: newMessages} = useQuery<string[]>({
+    url: `chat/chatAfter?chatId=${activeChatId}&lastMessage=${
+      messageList?.length ? messageList[0] : -1
+    }`,
+    method: "GET",
+    skip: false,
     interval: true
   });
+
+  useEffect(() => {
+    const messages = data?.messages ? [...data?.messages] : [];
+    messages.reverse();
+    setMessageList(messages);
+  }, [data]);
+
+  useEffect(() => {
+    if (!newMessages) {
+      return;
+    }
+    console.log("here");
+    setMessageList(prevMessagesList => [...newMessages, ...prevMessagesList]);
+  }, [newMessages]);
 
   const {
     isModalOpen: isNewMemberFormOpen,
     toggleModalState: toggleNewMemberForm,
   } = useModal();
 
-  const messageList = data?.messages ? [...data?.messages] : [];
-  messageList.reverse();
+
+  const handleScroll = async (e: React.UIEvent<HTMLDivElement>) => {
+    if (e.currentTarget.scrollTop === 0) {
+      const messages = prevMessages ? [...prevMessages] : [];
+      messages.reverse();
+      setMessageList(prevMessagesList => [...prevMessagesList, ...messages]);
+    }
+  };
 
   return (
     <div className="chat-area">
@@ -43,8 +81,11 @@ function ChatArea({ activeChatId }: chatAreaProps) {
         type={data?.type}
         handleFormOpen={toggleNewMemberForm}
       />
-
-      <ChatBody sender={sender} messages={messageList} />
+      <ChatBody
+        sender={sender}
+        messages={messageList}
+        onScroll={handleScroll}
+      />
 
       <MessageBox sender={sender} activeChatId={activeChatId} />
 
@@ -57,4 +98,5 @@ function ChatArea({ activeChatId }: chatAreaProps) {
   );
 }
 
+const ChatArea = React.memo(ChatAreaComponent);
 export { ChatArea };

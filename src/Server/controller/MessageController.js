@@ -17,7 +17,6 @@ class MessageController {
             message: "Message not found",
           });
         }
-
         resolve(data[messageId]);
       } catch (err) {
         reject({ ...err });
