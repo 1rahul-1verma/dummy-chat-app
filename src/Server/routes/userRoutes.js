@@ -7,23 +7,29 @@ const userController = new UserController();
 userRoutes.use(express.json());
 
 userRoutes.get("/", (req, res) => {
-  console.log("here");
   userController
     .getUsers()
     .then((data) => {
-      console.log(data);
       res.end(JSON.stringify(data));
     })
     .catch((err) => res.end(err.toString()));
 });
 
 userRoutes.get("/id", (req, res) => {
-  console.log(req.query);
   const userId = req.query.userId;
   userController
     .getUserById(userId)
     .then((data) => {
-      console.log(typeof data);
+      res.end(JSON.stringify(data));
+    })
+    .catch((err) => res.end(err.toString()));
+});
+
+userRoutes.post("/", (req, res) => {
+  const payload = req.body;
+  userController
+    .addUserChat(payload)
+    .then((data) => {
       res.end(JSON.stringify(data));
     })
     .catch((err) => res.end(err.toString()));

@@ -1,37 +1,47 @@
-import React from "react";
+import React, { useContext } from "react";
 import SideHeader from "./SideHeader/SideHeader";
 import {Channels} from "./Channels/Channels";
 import {FriendList} from "./FriendList/FriendList";
+import { useQuery } from "../../../Hooks/useQuery";
+import { UserContext } from "../../../App";
 import "./Sidepanel.css";
 
-interface sidePanel {
+interface sidePanelProps {
+  selectedListItem: string;
+  handleSelectedListItem: (chatId: string) => void;
+  handleFormOpen: () => void;
+}
+interface userSubscriptions {
+  id: string;
+  name: string;
+  directMessages: string[];
   channels: string[];
-  friends: string[];
-  handleSelectedChat: (chat: string) => void;
-  handleSelectedChatId: (chatId: string) => void;
-  handleChatMessages: (messages: string[]) => void;
+  avatar: string;
 }
 function Sidepanel({
-  channels,
-  friends,
-  handleSelectedChat,
-  handleSelectedChatId,
-  handleChatMessages
-}: sidePanel) {
+  selectedListItem,
+  handleSelectedListItem,
+  handleFormOpen
+}: sidePanelProps) {
+  const user = useContext(UserContext);
+  const { data } = useQuery<userSubscriptions>({
+    url: `user/id?userId=${user}`,
+    method: "GET",
+    interval: true,
+  });
   return (
-    <div className="container">
+    <div className="sidepanel-container">
       <SideHeader />
       <Channels
-        channels={channels}
-        handleSelectedChat={handleSelectedChat}
-        handleSelectedChatId={handleSelectedChatId}
-        handleChatMessages={ handleChatMessages}
+        SelectedChannel={selectedListItem}
+        channels={data?.channels}
+        handleSelectedChannelId={handleSelectedListItem}
+        handleFormOpen={handleFormOpen}
       />
       <FriendList
-        friends={friends}
-        handleSelectedChat={handleSelectedChat}
-        handleSelectedChatId={handleSelectedChatId}
-        handleChatMessages={ handleChatMessages}
+        SelectedFriend={selectedListItem}
+        friends={data?.directMessages}
+        handleSelectedFriendId={handleSelectedListItem}
       />
     </div>
   );

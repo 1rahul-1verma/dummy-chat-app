@@ -1,6 +1,6 @@
 const fs = require("fs");
 
-function readFile(fileLocation) {
+const readFile = (fileLocation) => {
     return new Promise((resolve, reject) => {
       try {
         const data = fs.readFileSync(fileLocation);

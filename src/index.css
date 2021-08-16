@@ -3,11 +3,15 @@ body {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   margin: auto;
-  font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
-
+  font-family: Slack-Lato, appleLogo, sans-serif;
+  font-size: 15px;
+  line-height: 1.46668;
+  font-weight: 400;
+  color: rgba(var(--sk_primary_foreground, 29, 28, 29), 1);
+  font-variant-ligatures: common-ligatures;
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }

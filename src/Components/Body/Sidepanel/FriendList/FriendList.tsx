@@ -3,33 +3,29 @@ import { ChatOption } from "../ChatOption/ChatOption";
 import "./FriendList.css";
 
 interface friendListPros {
-  friends: string[];
-  handleSelectedChat: (chat: string) => void;
-  handleSelectedChatId: (chatId: string) => void;
-  handleChatMessages: (message: string[]) => void;
+  friends: string[] | undefined;
+  SelectedFriend: string;
+  handleSelectedFriendId: (chatId: string) => void;
 }
 
-function FriendList({
+const FriendList = React.memo(({
   friends,
-  handleSelectedChat,
-  handleSelectedChatId,
-  handleChatMessages
-}: friendListPros) {
+  SelectedFriend,
+  handleSelectedFriendId
+}: friendListPros) => {
   return (
-    <div>
-      Direct Messages
-      {friends.map((friend, indx) => (
-        <div key={indx} className="friend">
+    <div className="friend-container">
+      <b>Direct Messages</b>
+      {friends?.map((friend, indx) => (
+        <div key={indx} className="friend" data-selected={SelectedFriend === friend}>
           <ChatOption
             chatId={friend}
-            handleSelectedChat={handleSelectedChat}
-            handleSelectedChatId={handleSelectedChatId}
-            handleChatMessages={ handleChatMessages}
+            handleSelectedChatId={handleSelectedFriendId}
           />
         </div>
-      )     )}
+      ))}
     </div>
   );
-}
+});
 
 export {FriendList};
