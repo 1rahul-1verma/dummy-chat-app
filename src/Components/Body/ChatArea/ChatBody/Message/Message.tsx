@@ -19,7 +19,7 @@ type userInformation = {
   directMessages: string[];
   avatar: string;
 };
-function Message({ sender, message }: messageProps) {
+const Message = React.memo(({ sender, message }: messageProps) => {
   const { data: chat, loading: chatLoading } = useQuery<messageInformation>({
     url: `message/id?messageId=${message}`,
     method: "GET",
@@ -29,7 +29,7 @@ function Message({ sender, message }: messageProps) {
     method: "GET",
   });
   return (
-    <div className="Message-container">
+    <div className="message-container">
       <div className="message" data-sender={sender === chat?.senderId}>
         <div>
           {userLoading ? (
@@ -40,12 +40,12 @@ function Message({ sender, message }: messageProps) {
         </div>
         <div className="message-content-container">
           {userLoading ? (
-            <div className="sender-name"> ...xXxXxXx...</div>
+            <div className="sender-name-loading"> </div>
           ) : (
             <div className="sender-name">{user?.name} :</div>
           )}
           {chatLoading ? (
-            <div className="message-content">...............</div>
+            <div className="message-content-loading"></div>
           ) : (
             <div className="message-content">{chat?.content}</div>
           )}
@@ -53,6 +53,6 @@ function Message({ sender, message }: messageProps) {
       </div>
     </div>
   );
-}
+});
 
 export { Message };

@@ -1,4 +1,4 @@
-import React, { useCallback } from "react";
+import React from "react";
 import { Message } from "./Message/Message";
 import "./ChatBody.css";
 
@@ -8,8 +8,8 @@ interface messageBodyProps {
   onScroll: (e: React.UIEvent<HTMLDivElement>) => void;
 }
 
-function ChatBody({ sender, messages, onScroll }: messageBodyProps) {
 
+const ChatBody = React.memo(({ sender, messages, onScroll }: messageBodyProps) => {
   return (
     <div className="chat-body-container" onScroll={onScroll}>
       { console.log(messages)}
@@ -19,6 +19,6 @@ function ChatBody({ sender, messages, onScroll }: messageBodyProps) {
         })}
     </div>
   );
-}
+});
 
 export { ChatBody };

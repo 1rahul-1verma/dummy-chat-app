@@ -30,7 +30,7 @@ function Sidepanel({
     interval: true,
   });
   return (
-    <div className="container">
+    <div className="sidepanel-container">
       <SideHeader />
       <Channels
         SelectedChannel={selectedListItem}

@@ -1,13 +1,7 @@
-.Message-container {
-    position: relative;
-    overflow: auto;
-    display: flex;
-    flex-direction: column-reverse;
-    overflow: auto;
+.message-content {
     padding: 4px;
+    padding-left: 20px;
     text-align: left;
-    transform: rotate(180deg);
-    direction: ltr;
 }
 
 .message {
@@ -18,13 +12,8 @@
 
 .sender-name {
     font-weight: bolder;
-    /* margin: 5px; */
 }
 
-.Message-content {
-    margin: 50px;
-    padding-left: 20px;
-}
 
 .message-avatar {
     height: 50px;
@@ -50,7 +39,7 @@
     border-radius: 5px;
     margin-top: 5px;
     margin-left: 5px;
-    background-color: peru;
+    background-color: gray;
 }
 
 
@@ -63,4 +52,20 @@
 .loading-message-content {
     margin: 50px;
     padding-left: 20px;
+}
+
+.sender-name-loading {
+    background-color: gray;
+    height: 15px;
+    width: 300px;
+    margin: 5px;
+    border-radius: 5px;
+}
+
+.message-content-loading {
+    background-color: gray;
+    height: 25px;
+    width: 400px;
+    margin: 5px;
+    border-radius: 5px;
 }

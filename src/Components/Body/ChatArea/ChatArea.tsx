@@ -20,7 +20,7 @@ type chatInformation = {
   type: string;
 };
 
-function ChatAreaComponent({ activeChatId }: chatAreaProps) {
+const ChatArea = ({ activeChatId }: chatAreaProps) => {
   const sender = useContext(UserContext);
   const [messageList, setMessageList] = useState<string[]>([]);
   
@@ -96,7 +96,6 @@ function ChatAreaComponent({ activeChatId }: chatAreaProps) {
       />
     </div>
   );
-}
+};
 
-const ChatArea = React.memo(ChatAreaComponent);
 export { ChatArea };

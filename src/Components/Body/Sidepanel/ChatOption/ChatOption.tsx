@@ -13,7 +13,7 @@ type chatInformation = {
   messages: string[];
   type: string;
 };
-function ChatOption({ chatId, handleSelectedChatId }: chatOptionProps) {
+const ChatOption = React.memo(({ chatId, handleSelectedChatId }: chatOptionProps) => {
   const { data, loading } = useQuery<chatInformation>({
     url: `chat/id?chatId=${chatId}`,
     method: "GET",
@@ -37,6 +37,6 @@ function ChatOption({ chatId, handleSelectedChatId }: chatOptionProps) {
       )}
     </>
   );
-}
+});
 
 export { ChatOption };

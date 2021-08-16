@@ -8,11 +8,11 @@ interface friendListPros {
   handleSelectedFriendId: (chatId: string) => void;
 }
 
-function FriendList({
+const FriendList = React.memo(({
   friends,
   SelectedFriend,
   handleSelectedFriendId
-}: friendListPros) {
+}: friendListPros) => {
   return (
     <div className="friend-container">
       <b>Direct Messages</b>
@@ -23,9 +23,9 @@ function FriendList({
             handleSelectedChatId={handleSelectedFriendId}
           />
         </div>
-      )     )}
+      ))}
     </div>
   );
-}
+});
 
 export {FriendList};

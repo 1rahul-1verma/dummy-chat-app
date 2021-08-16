@@ -1,4 +1,4 @@
-.Header-container {
+.header-container {
     border: 0.5px solid black;
     height: 44px;
     width: 99vw;
@@ -9,12 +9,12 @@
     box-shadow: 0 1px 0 0 rgb(255 255 255 / 10%)
 }
 
-.Search-box {
+.search-box {
     display: inline-block;
     height: 28px;
     width: 40vw;
     padding: 4px;
-    margin-top: 4px;
+    margin: auto;
     border: 0.25px solid white;
     border-radius: 4px;
     background: rgb(67,30,68);
