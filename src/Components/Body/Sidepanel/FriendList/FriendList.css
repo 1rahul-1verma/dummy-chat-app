@@ -6,6 +6,15 @@
 }
 
 .friend {
-    margin: 10px;
+    padding-left: 20px;
     color: rgb(199, 197, 197);
+}
+
+.friend:hover {
+    background-color: #350d36;
+}
+
+[data-selected=true], [data-selected=true]:hover {
+    font-weight: bold;
+    background-color: #1164A3;
 }

@@ -1,22 +1,34 @@
 import React from "react";
-import './Channels.css';
+import { ChatOption } from "../ChatOption/ChatOption";
+import "./Channels.css";
 
-const channelList: string[] = [
-  "campus-fte",
-  "campus-fte-june",
-  "company-announcement",
-  "help-onboard-june-21",
-];
-
-function Channels() {
-    return (
-        <div className="channel-container">
-            Channels
-            {channelList.map((channel, indx) => {
-                return <li key = {indx} className="channel"> {channel} </li>
-            })}
-        </div>
-    )
+interface channelProps {
+  channels: string[] | undefined;
+  SelectedChannel: string;
+  handleSelectedChannelId: (chatId: string) => void;
+  handleFormOpen: () => void;
 }
 
-export default Channels;
+const Channels = React.memo(({
+  channels,
+  SelectedChannel,
+  handleSelectedChannelId,
+  handleFormOpen
+}: channelProps) => {
+  return (
+    <div className="channel-container">
+      <b>Channels</b>
+      {channels?.map((channel, indx) => (
+        <div key={indx} className="channel" data-selected={SelectedChannel === channel}>
+          <ChatOption
+            chatId={channel}
+            handleSelectedChatId={handleSelectedChannelId}
+          />
+        </div>
+      ))}
+      <div className="channel-button" onClick={handleFormOpen} > Add channels </div>
+    </div>
+  );
+});
+
+export {Channels};

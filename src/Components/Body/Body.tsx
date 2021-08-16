@@ -1,39 +1,32 @@
-import React, { useEffect } from "react";
-import "./Body.css";
+import React, { useState, useCallback } from "react";
 import { Sidepanel } from "./Sidepanel/Sidepanel";
-import { Message } from "./Message/Message";
+import { ChatArea } from "./ChatArea/ChatArea";
+import { NewChannelForm } from "./NewChannelForm/NewChannelForm";
+import { useModal } from "../../Hooks/useModal";
+import "./Body.css";
 
-interface bodyProps {
-  user: string | null;
-}
-interface bodyObj {
-    Channels: string[],
-    DM: string[],
-    Application: string[],
-}
-let bodyObject: bodyObj = { Channels: [], DM: [], Application: []};
-function Body({ user }: bodyProps) {
-  useEffect(() => {
-    async function fetchBody(url: string) {
-      await fetch(url)
-        .then((res) => res.json())
-        .then((data) => {
-          bodyObject = data;
-        });
-    }
-    fetchBody(`http://localhost:8080/${user}`);
-  });
+const Body = React.memo(() => {
+  const [selectedChatId, setSelectedChatId] = useState("");
+  const {
+    isModalOpen: isNewChannelFormOpen,
+    toggleModalState: toggleNewChannelForm,
+  } = useModal();
+
+  const handleSelectedChatId = useCallback((activeChatId: string): void => {
+    setSelectedChatId(activeChatId);
+  }, []);
 
   return (
-    <div className="Body-container">
+    <div className="body-container">
       <Sidepanel
-        channels={bodyObject.Channels}
-        friends={bodyObject.DM}
-        application={bodyObject.Application}
+        selectedListItem={selectedChatId}
+        handleSelectedListItem={handleSelectedChatId}
+        handleFormOpen={toggleNewChannelForm}
       />
-      <Message />
+      <ChatArea activeChatId={selectedChatId} />
+      <NewChannelForm isOpen={isNewChannelFormOpen} onClose={toggleNewChannelForm} />
     </div>
   );
-}
+})
 
 export { Body };

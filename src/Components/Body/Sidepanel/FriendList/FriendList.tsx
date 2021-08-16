@@ -1,21 +1,31 @@
 import React from "react";
-import './FriendList.css';
+import { ChatOption } from "../ChatOption/ChatOption";
+import "./FriendList.css";
 
-const friendList: string[] = [
-  "Slackbot",
-  "Rahul Verma",
-  "Aditya Vikram Choudhary",
-  "Raghav Yadav",
-];
-function FriendList() {
-    return (
-        <div className="friend-container">
-            Direct Messages
-            {friendList.map((friend, indx) => {
-                return <li key={ indx} className="friend"> { friend } </li>
-            })}
-        </div>
-    );
+interface friendListPros {
+  friends: string[] | undefined;
+  SelectedFriend: string;
+  handleSelectedFriendId: (chatId: string) => void;
 }
 
-export default FriendList;
+const FriendList = React.memo(({
+  friends,
+  SelectedFriend,
+  handleSelectedFriendId
+}: friendListPros) => {
+  return (
+    <div className="friend-container">
+      <b>Direct Messages</b>
+      {friends?.map((friend, indx) => (
+        <div key={indx} className="friend" data-selected={SelectedFriend === friend}>
+          <ChatOption
+            chatId={friend}
+            handleSelectedChatId={handleSelectedFriendId}
+          />
+        </div>
+      ))}
+    </div>
+  );
+});
+
+export {FriendList};
