@@ -4,27 +4,10 @@
     text-align: left;
 }
 
-[data-sender] { 
-    overflow: auto;
-    width: 500px;
-    /* border: 1px solid black; */
-    margin: 5px;
-    /* border-radius: 5px; */
-    overflow: auto;
-    /* align-self: flex-end; */
-}
-
-[data-sender=true] {
-    /* background-color: #3F0E40; */
-    /* opacity: 70%; */
-    margin: 5px;
-    flex: none;
-    /* align-self: flex-end; */
-    /* color: white; */
-}
-
 .message {
     display: flex;
+    width: 500px;
+    margin: 5px;
 }
 
 .sender-name {
@@ -37,10 +20,52 @@
     width: 50px;
     border-radius: 5px;
     margin-top: 5px;
-    margin-left: 5px;;
+    margin-left: 5px;
 }
 
 .message-content-container{
     display: flex;
     flex-direction: column;
+    margin: 12px;
+}
+
+.loading-container {
+    display: flex;
+}
+
+.loading-avatar {
+    height: 50px;
+    width: 50px;
+    border-radius: 5px;
+    margin-top: 5px;
+    margin-left: 5px;
+    background-color: gray;
+}
+
+
+.loading-content-container {
+    display: flex;
+    flex-direction: column;
+    margin: 12px;
+}
+
+.loading-message-content {
+    margin: 50px;
+    padding-left: 20px;
+}
+
+.sender-name-loading {
+    background-color: gray;
+    height: 15px;
+    width: 300px;
+    margin: 5px;
+    border-radius: 5px;
+}
+
+.message-content-loading {
+    background-color: gray;
+    height: 25px;
+    width: 400px;
+    margin: 5px;
+    border-radius: 5px;
 }

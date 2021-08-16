@@ -31,9 +31,24 @@
     margin: 8px;
 }
 
-.user-name {
+.user {
     font-weight: bolder;
     float: right;
     color: white;
     font-size: large;
+    display: flex;
+}
+
+.user-name {
+    margin: auto;
+    vertical-align: middle;
+}
+
+.loading-user-avatar {
+    height: 30px;
+    width: 30px;
+    vertical-align: middle;
+    border-radius: 5px;
+    margin: 8px;
+    background-color: powderblue;
 }

@@ -20,23 +20,35 @@ type userInformation = {
   avatar: string;
 };
 const Message = React.memo(({ sender, message }: messageProps) => {
-  const { data } = useQuery<messageInformation>({
+  const { data: chat, loading: chatLoading } = useQuery<messageInformation>({
     url: `message/id?messageId=${message}`,
     method: "GET",
   });
-  const { data: user } = useQuery<userInformation>({
-    url: `user/id?userId=${data?.senderId}`,
+  const { data: user, loading: userLoading } = useQuery<userInformation>({
+    url: `user/id?userId=${chat?.senderId}`,
     method: "GET",
   });
   return (
-    <div className="message-content">
-      <div className="message" data-sender={sender === data?.senderId}>
+    <div className="message-container">
+      <div className="message" data-sender={sender === chat?.senderId}>
         <div>
-          <img className="message-avatar" src={user?.avatar} alt="avatar" />
+          {userLoading ? (
+            <div className="loading-avatar"></div>
+          ) : (
+            <img className="message-avatar" src={user?.avatar} alt="avatar" />
+          )}
         </div>
         <div className="message-content-container">
-          <div className="sender-name">{user?.name} :</div>
-          <div className="message-content">{data?.content}</div>
+          {userLoading ? (
+            <div className="sender-name-loading"> </div>
+          ) : (
+            <div className="sender-name">{user?.name} :</div>
+          )}
+          {chatLoading ? (
+            <div className="message-content-loading"></div>
+          ) : (
+            <div className="message-content">{chat?.content}</div>
+          )}
         </div>
       </div>
     </div>

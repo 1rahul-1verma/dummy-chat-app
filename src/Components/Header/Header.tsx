@@ -12,7 +12,7 @@ interface userSubscriptions {
 }
 function Header() {
   const user = useContext(UserContext);
-  const { data } = useQuery<userSubscriptions>({
+  const { data, loading } = useQuery<userSubscriptions>({
     url: `user/id?userId=${user}`,
     method: "GET",
   });
@@ -20,9 +20,18 @@ function Header() {
     <div className="header-container">
       <input className="search-box" placeholder="Search..." type="text" />
 
-      <div className="user-name">
-        <span> {data?.name} </span>
-        <img className="user-avatar" src={data?.avatar} alt="AVATAR" />
+      <div className="user">
+        {loading ? (
+          <>
+            <div className="user-name"> User_Name </div>
+            <div className="loading-user-avatar"> </div>
+          </>
+        ) : (
+          <>
+            <div className="user-name"> {data?.name} </div>
+            <img className="user-avatar" src={data?.avatar} alt="AVATAR" />
+          </>
+        )}
       </div>
     </div>
   );
