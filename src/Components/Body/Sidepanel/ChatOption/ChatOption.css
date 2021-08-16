@@ -2,6 +2,7 @@
     margin: 5px;
     height: 24px;
     cursor: pointer;
+    overflow: hidden;
 }
 
 

@@ -4,7 +4,7 @@ import "./SideHeader.css"
 const ORG_NAME = "Sprinklr";
 const SideHeader = React.memo(() => {
     return (
-        <div className="header-container">
+        <div className="side-header-container">
             {ORG_NAME}
         </div>
     )

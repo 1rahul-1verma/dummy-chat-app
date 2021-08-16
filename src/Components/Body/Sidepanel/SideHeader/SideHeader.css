@@ -1,12 +1,10 @@
-.header-container {
-    position: fixed;
+.side-header-container {
+    position: sticky;
     background: #3F0E40;
     color: #FFFFFF;
     height: 32px;
     font-size: 24px;
-    line-height: 1.33334;
     font-weight: 900;
-    position: sticky;
     text-align: left;
     padding: 16px;
     font-weight: bolder; 

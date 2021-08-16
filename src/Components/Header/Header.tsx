@@ -18,11 +18,11 @@ function Header() {
   });
   return (
     <div className="header-container">
-        <input className="search-box" placeholder="Search..." type="text" />
-      
-          <div className="user-name">
-              <span> {data?.name } </span> 
-              <img className="user-avatar" src={data?.avatar} alt="AVATAR" />
+      <input className="search-box" placeholder="Search..." type="text" />
+
+      <div className="user-name">
+        <span> {data?.name} </span>
+        <img className="user-avatar" src={data?.avatar} alt="AVATAR" />
       </div>
     </div>
   );

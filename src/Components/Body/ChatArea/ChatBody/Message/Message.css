@@ -1,13 +1,7 @@
 .message-content {
-    position: relative;
-    overflow: auto;
-    display: flex;
-    flex-direction: column-reverse;
-    overflow: auto;
     padding: 4px;
+    padding-left: 20px;
     text-align: left;
-    transform: rotate(180deg);
-    direction: ltr;
 }
 
 [data-sender] { 
@@ -35,13 +29,8 @@
 
 .sender-name {
     font-weight: bolder;
-    /* margin: 5px; */
 }
 
-.message-content {
-    margin: 50px;
-    padding-left: 20px;
-}
 
 .message-avatar {
     height: 50px;
@@ -54,5 +43,4 @@
 .message-content-container{
     display: flex;
     flex-direction: column;
-    margin: 12px;
 }
