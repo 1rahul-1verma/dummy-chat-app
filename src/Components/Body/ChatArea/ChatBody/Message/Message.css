@@ -1,4 +1,4 @@
-.Message-container {
+.message-content {
     position: relative;
     overflow: auto;
     display: flex;
@@ -38,7 +38,7 @@
     /* margin: 5px; */
 }
 
-.Message-content {
+.message-content {
     margin: 50px;
     padding-left: 20px;
 }

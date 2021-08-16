@@ -1,10 +1,10 @@
-.MessageBox-container {
+.messageBox-container {
     display: flex;
     height: 40px;
     margin: 5px;
 }
 
-.MessageBox-input {
+.messageBox-input {
     margin-left: 100px;
     height: 40px;
     width:75%;

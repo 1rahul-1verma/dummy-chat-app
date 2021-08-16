@@ -20,7 +20,7 @@ type chatInformation = {
   type: string;
 };
 
-function ChatArea({ activeChatId }: chatAreaProps) {
+const ChatArea = ({ activeChatId }: chatAreaProps) => {
   const sender = useContext(UserContext);
   const { data } = useQuery<chatInformation>({
     url: `chat/id?chatId=${activeChatId}`,
@@ -55,6 +55,6 @@ function ChatArea({ activeChatId }: chatAreaProps) {
       />
     </div>
   );
-}
+};
 
 export { ChatArea };

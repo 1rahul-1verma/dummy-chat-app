@@ -25,7 +25,7 @@ type chatInformation = {
   type: string;
 };
 
-function MessageBox({ sender, activeChatId }: MessageBoxProps) {
+const MessageBox = React.memo(({ sender, activeChatId }: MessageBoxProps) => {
   const [newMessage, setNewMessage] = useState("");
 
   const { mutate: mutateMessage } = useMutation<messageInformation>((data) => {
@@ -64,9 +64,9 @@ function MessageBox({ sender, activeChatId }: MessageBoxProps) {
   };
 
   return (
-    <div className="MessageBox-container">
+    <div className="messageBox-container">
       <textarea
-        className="MessageBox-input"
+        className="messageBox-input"
         placeholder="Type Message..."
         value={newMessage}
         onChange={handleNewMessage}
@@ -80,6 +80,6 @@ function MessageBox({ sender, activeChatId }: MessageBoxProps) {
       </button>
     </div>
   );
-}
+});
 
 export { MessageBox };

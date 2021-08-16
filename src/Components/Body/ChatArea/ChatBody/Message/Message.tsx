@@ -19,7 +19,7 @@ type userInformation = {
   directMessages: string[];
   avatar: string;
 };
-function Message({ sender, message }: messageProps) {
+const Message = React.memo(({ sender, message }: messageProps) => {
   const { data } = useQuery<messageInformation>({
     url: `message/id?messageId=${message}`,
     method: "GET",
@@ -29,7 +29,7 @@ function Message({ sender, message }: messageProps) {
     method: "GET",
   });
   return (
-    <div className="Message-container">
+    <div className="message-content">
       <div className="message" data-sender={sender === data?.senderId}>
         <div>
           <img className="message-avatar" src={user?.avatar} alt="avatar" />
@@ -41,6 +41,6 @@ function Message({ sender, message }: messageProps) {
       </div>
     </div>
   );
-}
+});
 
 export { Message };

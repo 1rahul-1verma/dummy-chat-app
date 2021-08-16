@@ -17,11 +17,11 @@ type chatInformation = {
   type: string;
 };
 
-function NewMemberForm({
+const NewMemberForm = React.memo(({
   isFormOpen,
   chatId,
   handleFormClose,
-}: newMemberFormProp) {
+}: newMemberFormProp) => {
   const [user, setUser] = useState("");
   const { mutate: mutateChat } = useMutation<chatInformation>((data) => {
     const url = `${ROOT_URL}chat/newUser`;
@@ -70,6 +70,6 @@ function NewMemberForm({
       )}
     </>
   );
-}
+});
 
 export { NewMemberForm };

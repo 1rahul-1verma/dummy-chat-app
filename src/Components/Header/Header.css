@@ -1,4 +1,4 @@
-.Header-container {
+.header-container {
     border: 0.5px solid black;
     height: 44px;
     width: 99vw;
@@ -9,7 +9,7 @@
     box-shadow: 0 1px 0 0 rgb(255 255 255 / 10%)
 }
 
-.Search-box {
+.search-box {
     display: inline-block;
     height: 28px;
     width: 40vw;
@@ -22,7 +22,7 @@
     color: grey;
 }
 
-.User-avatar {
+.user-avatar {
     /* display: inline-block; */
     height: 30px;
     width: 30px;

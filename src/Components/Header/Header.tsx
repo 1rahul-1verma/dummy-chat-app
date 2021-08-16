@@ -17,12 +17,12 @@ function Header() {
     method: "GET",
   });
   return (
-    <div className="Header-container">
-        <input className="Search-box" placeholder="Search..." type="text" />
+    <div className="header-container">
+        <input className="search-box" placeholder="Search..." type="text" />
       
           <div className="user-name">
               <span> {data?.name } </span> 
-              <img className="User-avatar" src={data?.avatar} alt="AVATAR" />
+              <img className="user-avatar" src={data?.avatar} alt="AVATAR" />
       </div>
     </div>
   );

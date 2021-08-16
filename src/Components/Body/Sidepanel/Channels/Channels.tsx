@@ -9,17 +9,17 @@ interface channelProps {
   handleFormOpen: () => void;
 }
 
-function Channels({
+const Channels = React.memo(({
   channels,
   SelectedChannel,
   handleSelectedChannelId,
   handleFormOpen
-}: channelProps) {
+}: channelProps) => {
   return (
     <div className="channel-container">
       <b>Channels</b>
       {channels?.map((channel, indx) => (
-        <div key={indx} className="channel" data-selected={SelectedChannel===channel}>
+        <div key={indx} className="channel" data-selected={SelectedChannel === channel}>
           <ChatOption
             chatId={channel}
             handleSelectedChatId={handleSelectedChannelId}
@@ -29,6 +29,6 @@ function Channels({
       <div className="channel-button" onClick={handleFormOpen} > Add channels </div>
     </div>
   );
-}
+});
 
 export {Channels};

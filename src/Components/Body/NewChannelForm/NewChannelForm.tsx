@@ -17,7 +17,7 @@ type chatInformation = {
   type: string;
 };
 
-function NewChannelForm({ isOpen, onClose}: newChannelFormProps) {
+const NewChannelForm = React.memo(({ isOpen, onClose}: newChannelFormProps) => {
   const [chatName, setChatName] = useState("");
   const [users, setUsers] = useState("");
 
@@ -99,6 +99,6 @@ function NewChannelForm({ isOpen, onClose}: newChannelFormProps) {
       )}
     </>
   );
-}
+})
 
 export { NewChannelForm };

@@ -2,12 +2,12 @@ import React from 'react'
 import "./SideHeader.css"
 
 const ORG_NAME = "Sprinklr";
-function SideHeader() {
+const SideHeader = React.memo(() => {
     return (
-        <div className = "header-container">
-            { ORG_NAME }
+        <div className="header-container">
+            {ORG_NAME}
         </div>
     )
-}
+});
 
 export default SideHeader

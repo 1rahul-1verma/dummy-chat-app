@@ -5,7 +5,7 @@ import { NewChannelForm } from "./NewChannelForm/NewChannelForm";
 import { useModal } from "../../Hooks/useModal";
 import "./Body.css";
 
-function Body() {
+const Body = React.memo(() => {
   const [selectedChatId, setSelectedChatId] = useState("");
   const {
     isModalOpen: isNewChannelFormOpen,
@@ -17,7 +17,7 @@ function Body() {
   }, []);
 
   return (
-    <div className="Body-container">
+    <div className="body-container">
       <Sidepanel
         selectedListItem={selectedChatId}
         handleSelectedListItem={handleSelectedChatId}
@@ -27,6 +27,6 @@ function Body() {
       <NewChannelForm isOpen={isNewChannelFormOpen} onClose={toggleNewChannelForm} />
     </div>
   );
-}
+})
 
 export { Body };
