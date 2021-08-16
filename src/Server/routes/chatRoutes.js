@@ -16,9 +16,31 @@ chatRoutes.get("/", (req, res) => {
 });
 
 chatRoutes.get("/id", (req, res) => {
-  const userId = req.query.chatId;
+  const chatId = req.query.chatId;
   chatController
-    .getChatById(userId)
+    .getChatById(chatId)
+    .then((data) => {
+      res.end(JSON.stringify(data));
+    })
+    .catch((err) => res.end(err.toString()));
+});
+
+chatRoutes.get("/page", (req, res) => {
+  const chatId = req.query.chatId;
+  const lastMessage = req.query.lastMessage;
+  chatController
+    .getChatsByPage(chatId, lastMessage)
+    .then((data) => {
+      res.end(JSON.stringify(data));
+    })
+    .catch((err) => res.end(err.toString()));
+});
+
+chatRoutes.get("/chatAfter", (req, res) => {
+  const chatId = req.query.chatId;
+  const lastMessage = req.query.lastMessage;
+  chatController
+    .getChatsAfter(chatId, lastMessage)
     .then((data) => {
       res.end(JSON.stringify(data));
     })
@@ -35,7 +57,6 @@ chatRoutes.post("/id", (req, res) => {
 });
 
 chatRoutes.post("/new", (req, res) => {
-  console.log("here");
   const payload = req.body;
   chatController.addNewChatRoom(payload)
     .then((data) => {

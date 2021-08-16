@@ -51,7 +51,7 @@ const MessageBox = React.memo(({ sender, activeChatId }: MessageBoxProps) => {
       id: uniqueMessageId,
       senderId: sender,
       content: newMessage,
-      timeStamp: Date.now().toString(),
+      timeStamp: uniqueMessageId,
     };
     mutateMessage(messagePayload);
 

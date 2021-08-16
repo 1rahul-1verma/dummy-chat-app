@@ -14,7 +14,7 @@ type chatInformation = {
   type: string;
 };
 const ChatOption = React.memo(({ chatId, handleSelectedChatId }: chatOptionProps) => {
-  const { data } = useQuery<chatInformation>({
+  const { data, loading } = useQuery<chatInformation>({
     url: `chat/id?chatId=${chatId}`,
     method: "GET",
   });
@@ -24,12 +24,18 @@ const ChatOption = React.memo(({ chatId, handleSelectedChatId }: chatOptionProps
     }
   };
   return (
-    <div
-      className="chat-option-container"
-      onClick={() => handleSelection(data)}
-    >
-      {data?.name}
-    </div>
+    <>
+      {loading ? (
+        <div> Loading... </div>
+      ) : (
+        <div
+          className="chat-option-container"
+          onClick={() => handleSelection(data)}
+        >
+          {data?.name}
+        </div>
+      )}
+    </>
   );
 });
 
