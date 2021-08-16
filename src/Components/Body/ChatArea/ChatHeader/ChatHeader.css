@@ -1,0 +1,19 @@
+.chat-header-container {
+    height: 32px;
+    position: sticky;
+    font-size: larger;
+    text-align: left;
+    padding: 16px;
+    font-weight: bolder; 
+    border-bottom: .25px solid black;
+    font-size: 24px;
+}
+
+.add-channel-button {
+    float: right;
+    height: 32px;
+    width: 32px;
+    font-size: 28px;
+    background-color: white;
+    border: none;
+}

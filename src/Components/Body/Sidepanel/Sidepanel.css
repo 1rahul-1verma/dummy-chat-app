@@ -1,7 +1,11 @@
-.container {
-    background-color: rgb(73, 0, 73);
-    width: 20vw;
-    height: 96vh;
+.sidepanel-container {
+    display: flex;
+    flex-direction: column;
+    background-color: #3F0E40;
+    font-size: large;
+    width: 250px;
     overflow: auto;
     color: white;
+    width: 15%;
+    border: 1px solid blue;
 }

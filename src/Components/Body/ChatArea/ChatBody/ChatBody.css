@@ -1,0 +1,8 @@
+.chat-body-container {
+    overflow: auto;
+    height: 740px;
+    display: flex;
+    flex-direction: column-reverse;
+    /* transform: rotate(180deg);
+    direction: rtl; */
+}

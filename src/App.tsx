@@ -3,14 +3,15 @@ import { Header } from "./Components/Header/Header";
 import { Body } from "./Components/Body/Body";
 
 const user = prompt("Enter name to join");
+const UserContext = React.createContext<string | null>("");
 
 function App() {
   return (
-    <div>
-      <Header user={ user }/>
-      <Body user={ user}/>
-    </div>
+    <UserContext.Provider value={user}>
+      <Header />
+      <Body />
+    </UserContext.Provider>
   );
 }
 
-export default App;
+export { App, UserContext };

@@ -1,18 +1,17 @@
 const { readFile } = require("../Util/readFile");
-const {CHAT_FILE} = require("../../constants");
+const { writeFile } = require("../Util/writeFile");
+const { CHAT_FILE } = require("../../constants");
 
 class ChatController {
   constructor() {
     this.file = CHAT_FILE;
   }
 
-    getChats() {
-        console.log("chattsss");
+  getChats() {
     return new Promise(async (resolve, reject) => {
       try {
         const chatsJSON = await readFile(this.file);
-          const chatData = JSON.parse(chatsJSON);
-          console.log(chatsJSON, chatData);
+        const chatData = JSON.parse(chatsJSON);
         resolve(chatData);
       } catch (err) {
         reject({ ...err });
@@ -29,6 +28,75 @@ class ChatController {
           reject({});
         }
         resolve(chat[chatId]);
+      } catch (err) {
+        reject({ ...err });
+      }
+    });
+  }
+
+  addNewMessageInChat(payload) { 
+    return new Promise(async (resolve, reject) => {
+      try {
+        const { chatId, messageId } = payload;
+        const oldChatData = await this.getChats();
+        const oldChatID_Data = await this.getChatById(chatId);
+        const newChatID_Data = {
+          ...oldChatID_Data,
+          messages: [...oldChatID_Data.messages, messageId]
+        };
+        const newChatData = {
+          ...oldChatData,
+          [chatId]: newChatID_Data,
+        };
+        const newChatDataJson = JSON.stringify(newChatData);
+        await writeFile(this.file, newChatDataJson);
+        resolve(newChatID_Data);
+      } catch (err) {
+        reject({ ...err });
+      }
+    });
+  }
+
+  addNewChatRoom(payload) {
+    return new Promise(async (resolve, reject) => {
+      try {
+        const oldChatJson = await readFile(this.file);
+        const oldChat = JSON.parse(oldChatJson);
+        const newChat = {
+          ...oldChat,
+          [payload.id]: payload
+        };
+        const newChatJson = JSON.stringify(newChat);
+        await writeFile(this.file, newChatJson);
+        resolve(payload);
+      } catch (err) {
+        reject({ ...err });
+      }
+    });
+  }
+
+  addNewMember(payload) {
+    return new Promise(async (resolve, reject) => {
+      try {
+        const { chatId, userId } = payload;
+        const oldChatData = await this.getChats();
+        const oldChatID_Data = await this.getChatById(chatId);
+        if (oldChatID_Data.userID.includes(userId)) {
+          resolve(oldChatID_Data);
+          return;
+        }
+        const newChatID_Data = {
+          ...oldChatID_Data,
+          userID: [...oldChatID_Data.userID, userId]
+        };
+        console.log(oldChatID_Data["userId"], Object.keys(oldChatID_Data));
+        const newChatData = {
+          ...oldChatData,
+          [chatId]: newChatID_Data,
+        };
+        const newChatDataJson = JSON.stringify(newChatData);
+        await writeFile(this.file, newChatDataJson);
+        resolve(newChatID_Data);
       } catch (err) {
         reject({ ...err });
       }

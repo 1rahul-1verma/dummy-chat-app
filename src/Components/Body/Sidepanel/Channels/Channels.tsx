@@ -3,34 +3,32 @@ import { ChatOption } from "../ChatOption/ChatOption";
 import "./Channels.css";
 
 interface channelProps {
-  channels: string[];
-  handleSelectedChat: (chat: string) => void;
-  handleSelectedChatId: (chatId: string) => void;
-  handleChatMessages: (message: string[]) => void;
+  channels: string[] | undefined;
+  SelectedChannel: string;
+  handleSelectedChannelId: (chatId: string) => void;
+  handleFormOpen: () => void;
 }
 
-function Channels({
+const Channels = React.memo(({
   channels,
-  handleSelectedChat,
-  handleSelectedChatId,
-  handleChatMessages,
-}: channelProps) {
+  SelectedChannel,
+  handleSelectedChannelId,
+  handleFormOpen
+}: channelProps) => {
   return (
     <div className="channel-container">
-      Channels
-      { console.log(channels)}
-      {channels.map((channel, indx) => (
-        <div key={indx} className="friend">
+      <b>Channels</b>
+      {channels?.map((channel, indx) => (
+        <div key={indx} className="channel" data-selected={SelectedChannel === channel}>
           <ChatOption
             chatId={channel}
-            handleSelectedChatId={handleSelectedChatId}
-            handleSelectedChat={handleSelectedChat}
-            handleChatMessages={ handleChatMessages}
+            handleSelectedChatId={handleSelectedChannelId}
           />
         </div>
       ))}
+      <div className="channel-button" onClick={handleFormOpen} > Add channels </div>
     </div>
   );
-}
+});
 
 export {Channels};
