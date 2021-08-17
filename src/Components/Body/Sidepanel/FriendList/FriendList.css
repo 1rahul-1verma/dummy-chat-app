@@ -1,13 +1,16 @@
 .friend-container {
     margin-top: 50px;
-    margin-left: 10px;
     text-align: left;
     color: rgb(199, 197, 197);
 }
 
+.message-header {
+    margin-left: 10px;;
+}
+
 .friend {
-    padding-left: 20px;
     color: rgb(199, 197, 197);
+    /* padding: 2px; */
 }
 
 .friend:hover {

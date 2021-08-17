@@ -1,14 +1,15 @@
+.channel-header{
+    margin-left: 10px;
+}
 .channel-container {
     margin-top: 50px;
-    margin-left: 10px;
     text-align: left;
     color: rgb(199, 197, 197);
 }
 
 .channel {
     color: rgb(199, 197, 197);
-    padding: 2px;
-    padding-left: 20px;
+    padding: 1px;
 }
 
 .channel:hover {
@@ -17,12 +18,17 @@
 
 .channel-button {
     cursor: pointer;
-    padding-left: 5px;
-    margin: 20px;
+    margin-left: 12px;
+    padding: 1px;
     background-color:  #3F0E40;
 }
 
-[data-selected=true], [data-selected=true]:hover {
+.channel-button:hover {
+    background-color: #350d36;
+}
+
+
+[data-selected=true]:hover {
     font-weight: bold;
     background-color: #1164A3;
 }

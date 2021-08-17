@@ -1,39 +1,20 @@
 import React, { useState } from "react";
 import { useMutation } from "../../../../Hooks/useMutation";
 import { mutationCallback } from "../../../Util/mutationCallback";
+import { MessageBoxProps } from "../types/types";
 import "./MessageBox.css";
 
 const { ROOT_URL } = require("../../../../constants");
 
-interface MessageBoxProps {
-  sender: string | null;
-  activeChatId: string;
-}
-
-type messageInformation = {
-  id: string;
-  senderId: string;
-  content: string;
-  timeStamp: string;
-};
-
-type chatInformation = {
-  id: string;
-  name: string;
-  userId: string[];
-  messages: string[];
-  type: string;
-};
-
 const MessageBox = React.memo(({ sender, activeChatId }: MessageBoxProps) => {
   const [newMessage, setNewMessage] = useState("");
 
-  const { mutate: mutateMessage } = useMutation<messageInformation>((data) => {
+  const { mutate: mutateMessage } = useMutation((data) => {
     const url = `${ROOT_URL}message`;
     return mutationCallback(data, url);
   });
 
-  const { mutate: mutateChat } = useMutation<chatInformation>((data) => {
+  const { mutate: mutateChat } = useMutation((data) => {
     const url = `${ROOT_URL}chat/id`;
     return mutationCallback(data, url);
   });

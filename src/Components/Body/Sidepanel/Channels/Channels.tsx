@@ -17,7 +17,7 @@ const Channels = React.memo(({
 }: channelProps) => {
   return (
     <div className="channel-container">
-      <b>Channels</b>
+      <p className="channel-header">Channels</p>
       {channels?.map((channel, indx) => (
         <div key={indx} className="channel" data-selected={SelectedChannel === channel}>
           <ChatOption

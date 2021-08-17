@@ -1,30 +1,17 @@
 import React from "react";
 import { useQuery } from "../../../../../Hooks/useQuery";
+import { getTime } from "../../../../../Util/getTime";
+import { MessageProps } from "../../types/types";
+import { MessageInformation } from "../../types/types";
+import { UserInformation } from "../../types/types";
 import "./Message.css";
 
-interface messageProps {
-  sender: string | null;
-  message: string;
-}
-type messageInformation = {
-  id: string;
-  senderId: string;
-  content: string;
-  timeStamp: string;
-};
-type userInformation = {
-  id: string;
-  name: string;
-  channels: string[];
-  directMessages: string[];
-  avatar: string;
-};
-const Message = React.memo(({ sender, message }: messageProps) => {
-  const { data: chat, loading: chatLoading } = useQuery<messageInformation>({
+const Message = React.memo(({ sender, message }: MessageProps) => {
+  const { data: chat, loading: chatLoading } = useQuery<MessageInformation>({
     url: `message/id?messageId=${message}`,
     method: "GET",
   });
-  const { data: user, loading: userLoading } = useQuery<userInformation>({
+  const { data: user, loading: userLoading } = useQuery<UserInformation>({
     url: `user/id?userId=${chat?.senderId}`,
     method: "GET",
   });
@@ -32,22 +19,22 @@ const Message = React.memo(({ sender, message }: messageProps) => {
     <div className="message-container">
       <div className="message" data-sender={sender === chat?.senderId}>
         <div>
-          {userLoading ? (
+          {userLoading || !user ? (
             <div className="loading-avatar"></div>
           ) : (
-            <img className="message-avatar" src={user?.avatar} alt="avatar" />
+            <img className="message-avatar" src={user.avatar} alt="avatar" />
           )}
         </div>
         <div className="message-content-container">
-          {userLoading ? (
+          {userLoading || !user ? (
             <div className="sender-name-loading"> </div>
           ) : (
-            <div className="sender-name">{user?.name} :</div>
+            <div className="sender-name">{user.name} : {getTime(chat?.timeStamp)}</div>
           )}
-          {chatLoading ? (
+          {chatLoading || !chat ? (
             <div className="message-content-loading"></div>
           ) : (
-            <div className="message-content">{chat?.content}</div>
+            <div className="message-content">{chat.content}</div>
           )}
         </div>
       </div>

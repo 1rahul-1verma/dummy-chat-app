@@ -15,7 +15,7 @@ const FriendList = React.memo(({
 }: friendListPros) => {
   return (
     <div className="friend-container">
-      <b>Direct Messages</b>
+      <p className="message-header">Direct Messages</p>
       {friends?.map((friend, indx) => (
         <div key={indx} className="friend" data-selected={SelectedFriend === friend}>
           <ChatOption

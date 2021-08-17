@@ -1,8 +1,7 @@
 .chat-option-container{
-    margin: 5px;
+    margin: 2px;
+    margin-left: 12px;
     height: 24px;
     cursor: pointer;
     overflow: hidden;
 }
-
-

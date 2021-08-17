@@ -8,8 +8,8 @@ html,body {
   font-weight: 400;
   color: rgba(var(--sk_primary_foreground, 29, 28, 29), 1);
   font-variant-ligatures: common-ligatures;
-  height: 100%;
-  width: 100%;
+  height: 99.9%;
+  width: 99.95%;
   margin: 0;
   padding: 0;
 }
