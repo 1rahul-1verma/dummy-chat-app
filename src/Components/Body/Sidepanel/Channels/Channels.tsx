@@ -1,20 +1,15 @@
 import React from "react";
 import { ChatOption } from "../ChatOption/ChatOption";
-import "./Channels.css";
+import { ChannelProps } from "../types/types";
 
-interface channelProps {
-  channels: string[] | undefined;
-  SelectedChannel: string;
-  handleSelectedChannelId: (chatId: string) => void;
-  handleFormOpen: () => void;
-}
+import "./Channels.css";
 
 const Channels = React.memo(({
   channels,
   SelectedChannel,
   handleSelectedChannelId,
   handleFormOpen
-}: channelProps) => {
+}: ChannelProps) => {
   return (
     <div className="channel-container">
       <p className="channel-header">Channels</p>

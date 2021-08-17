@@ -29,7 +29,10 @@ const Message = React.memo(({ sender, message }: MessageProps) => {
           {userLoading || !user ? (
             <div className="sender-name-loading"> </div>
           ) : (
-            <div className="sender-name">{user.name} : {getTime(chat?.timeStamp)}</div>
+            <div className="message-info">
+              <div className="sender-name">{user.name} </div>
+              <div className="message-time"> {getTime(chat?.timeStamp)} </div>
+            </div >
           )}
           {chatLoading || !chat ? (
             <div className="message-content-loading"></div>

@@ -58,6 +58,7 @@
 
 .sender-name {
     font-weight: bolder;
+    margin-right: 10px;
 }
 
 .sender-name-loading {
@@ -67,3 +68,12 @@
     border-radius: 5px;
 }
 
+.message-info {
+    display: flex;
+}
+
+.message-time {
+    font-size: small;
+    margin-top: 2px;
+    margin-left: 6px;
+}

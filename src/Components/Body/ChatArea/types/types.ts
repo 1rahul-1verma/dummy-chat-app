@@ -1,5 +1,5 @@
 type ChatAreaProps = {
-  activeChatId: string;
+  activeChatId: string | undefined;
 };
 
 type ChatInformation = {
@@ -12,13 +12,13 @@ type ChatInformation = {
 
 type NewMemberFormProp = {
   isFormOpen: boolean;
-  chatId: string;
+  chatId: string | undefined;
   handleFormClose: () => void;
 };
 
 type MessageBoxProps = {
   sender: string | null;
-  activeChatId: string;
+  activeChatId: string | undefined;
 };
 
 type ChatHeaderProps = {
