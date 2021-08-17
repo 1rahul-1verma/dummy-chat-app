@@ -1,15 +1,11 @@
 import React from "react";
 import { Message } from "./Message/Message";
 import "./ChatBody.css";
-
-interface messageBodyProps {
-  sender: string | null;
-  messages: string[] | undefined;
-  onScroll: (e: React.UIEvent<HTMLDivElement>) => void;
-}
+import { ChatBodyProps } from "../types/types";
 
 
-const ChatBody = React.memo(({ sender, messages, onScroll }: messageBodyProps) => {
+
+const ChatBody = React.memo(({ sender, messages, onScroll }: ChatBodyProps) => {
   return (
     <div className="chat-body-container" onScroll={onScroll}>
       { console.log(messages)}

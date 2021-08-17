@@ -1,11 +1,7 @@
 import React from "react";
+import { ChatHeaderProps } from "../types/types";
 import "./ChatHeader.css";
 
-interface ChatHeaderProps {
-  activeChat: string | undefined;
-  type: string | undefined;
-  handleFormOpen: () => void;
-}
 const ChatHeader = React.memo(
   ({ activeChat, type, handleFormOpen }: ChatHeaderProps) => {
     return (

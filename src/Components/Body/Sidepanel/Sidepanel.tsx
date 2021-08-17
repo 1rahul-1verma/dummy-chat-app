@@ -7,8 +7,8 @@ import { UserContext } from "../../../App";
 import "./Sidepanel.css";
 
 interface sidePanelProps {
-  selectedListItem: string;
-  handleSelectedListItem: (chatId: string) => void;
+  selectedListItem: string | undefined;
+  handleSelectedListItem: (chatId: string | undefined) => void;
   handleFormOpen: () => void;
 }
 interface userSubscriptions {

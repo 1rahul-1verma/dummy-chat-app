@@ -6,13 +6,13 @@ import { useModal } from "../../Hooks/useModal";
 import "./Body.css";
 
 const Body = React.memo(() => {
-  const [selectedChatId, setSelectedChatId] = useState("");
+  const [selectedChatId, setSelectedChatId] = useState<string | undefined>("");
   const {
     isModalOpen: isNewChannelFormOpen,
     toggleModalState: toggleNewChannelForm,
   } = useModal();
 
-  const handleSelectedChatId = useCallback((activeChatId: string): void => {
+  const handleSelectedChatId = useCallback((activeChatId: string | undefined): void => {
     setSelectedChatId(activeChatId);
   }, []);
 

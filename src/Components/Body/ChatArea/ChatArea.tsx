@@ -6,25 +6,14 @@ import { useQuery } from "../../../Hooks/useQuery";
 import { UserContext } from "../../../App";
 import { NewMemberForm } from "./NewMemberForm/NewMemberForm";
 import { useModal } from "../../../Hooks/useModal";
+import { ChatAreaProps, ChatInformation } from "./types/types";
 import "./ChatArea.css";
 
-interface chatAreaProps {
-  activeChatId: string;
-}
-
-type chatInformation = {
-  id: string;
-  name: string;
-  userId: string[];
-  messages: string[];
-  type: string;
-};
-
-const ChatArea = ({ activeChatId }: chatAreaProps) => {
+const ChatArea = ({ activeChatId }: ChatAreaProps) => {
   const sender = useContext(UserContext);
   const [messageList, setMessageList] = useState<string[]>([]);
   
-  const { data } = useQuery<chatInformation>({
+  const { data } = useQuery<ChatInformation>({
     url: `chat/id?chatId=${activeChatId}`,
     method: "GET",
   });

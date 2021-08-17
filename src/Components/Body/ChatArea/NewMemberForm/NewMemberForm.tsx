@@ -2,32 +2,19 @@ import React, { useState } from "react";
 import { ROOT_URL } from "../../../../constants";
 import { useMutation } from "../../../../Hooks/useMutation";
 import { mutationCallback } from "../../../Util/mutationCallback";
-
-interface newMemberFormProp {
-  isFormOpen: boolean;
-  chatId: string;
-  handleFormClose: () => void;
-}
-
-type chatInformation = {
-  id: string;
-  name: string;
-  userID: string[];
-  messages: string[];
-  type: string;
-};
+import { NewMemberFormProp } from "../types/types";
 
 const NewMemberForm = React.memo(({
   isFormOpen,
   chatId,
   handleFormClose,
-}: newMemberFormProp) => {
+}: NewMemberFormProp) => {
   const [user, setUser] = useState("");
-  const { mutate: mutateChat } = useMutation<chatInformation>((data) => {
+  const { mutate: mutateChat } = useMutation((data) => {
     const url = `${ROOT_URL}chat/newUser`;
     return mutationCallback(data, url);
   });
-  const { mutate: mutateUser } = useMutation<chatInformation>((data) => {
+  const { mutate: mutateUser } = useMutation((data) => {
     const url = `${ROOT_URL}user`;
     return mutationCallback(data, url);
   });

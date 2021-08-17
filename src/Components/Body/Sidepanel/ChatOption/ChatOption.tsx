@@ -1,28 +1,17 @@
 import React from "react";
 import { useQuery } from "../../../../Hooks/useQuery";
+import { ChatOptionProps, ChatInformation } from "../types/types";
 import "./ChatOption.css";
 
-interface chatOptionProps {
-  chatId: string;
-  handleSelectedChatId: (chatId: string) => void;
-}
-type chatInformation = {
-  id: string;
-  name: string;
-  userId: string[];
-  messages: string[];
-  type: string;
-};
-const ChatOption = React.memo(({ chatId, handleSelectedChatId }: chatOptionProps) => {
-  const { data, loading } = useQuery<chatInformation>({
+const ChatOption = React.memo(({ chatId, handleSelectedChatId }: ChatOptionProps) => {
+  const { data, loading } = useQuery<ChatInformation>({
     url: `chat/id?chatId=${chatId}`,
     method: "GET",
   });
-  const handleSelection = (data: chatInformation | undefined): void => {
-    if (data) {
-      handleSelectedChatId(data.id);
-    }
+  const handleSelection = (id: string | undefined): void => {
+      handleSelectedChatId(id);
   };
+
   return (
     <>
       {loading ? (
@@ -30,7 +19,7 @@ const ChatOption = React.memo(({ chatId, handleSelectedChatId }: chatOptionProps
       ) : (
         <div
           className="chat-option-container"
-          onClick={() => handleSelection(data)}
+          onClick={() => handleSelection(data?.id)}
         >
           {data?.name}
         </div>
