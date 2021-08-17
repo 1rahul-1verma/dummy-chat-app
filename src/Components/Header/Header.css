@@ -1,20 +1,20 @@
 .header-container {
     border: 0.5px solid black;
-    height: 44px;
-    width: 99vw;
+    height: 4%;
+    width: 100%;
     border-top-left-radius: 4px;
     border-top-right-radius: 4px;
-    margin: auto;
+    /* margin: auto; */
     background-color: #350d36;
     box-shadow: 0 1px 0 0 rgb(255 255 255 / 10%)
 }
 
 .search-box {
     display: inline-block;
-    height: 28px;
-    width: 40vw;
+    height: 50%;
+    width: 45%;
     padding: 4px;
-    margin: auto;
+    margin-top: 4px;
     border: 0.25px solid white;
     border-radius: 4px;
     background: rgb(67,30,68);
@@ -23,12 +23,12 @@
 }
 
 .user-avatar {
-    /* display: inline-block; */
-    height: 30px;
-    width: 30px;
+    height: 50%;
+    width: 6%;
     vertical-align: middle;
     border-radius: 5px;
-    margin: 8px;
+    margin-right: 12px;
+    margin-top: 4px;
 }
 
 .user {
@@ -41,6 +41,7 @@
 
 .user-name {
     margin: auto;
+    margin-right: 4px;
     vertical-align: middle;
 }
 

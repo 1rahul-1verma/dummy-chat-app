@@ -1,14 +1,22 @@
-body {
+html,body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  margin: auto;
   font-family: Slack-Lato, appleLogo, sans-serif;
   font-size: 15px;
   line-height: 1.46668;
   font-weight: 400;
   color: rgba(var(--sk_primary_foreground, 29, 28, 29), 1);
   font-variant-ligatures: common-ligatures;
+  height: 100%;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+#root {
+  height: 100%;
+  width: 100%;
 }
 
 code {
